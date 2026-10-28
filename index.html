@@ -6,7 +6,7 @@
 <title>ProALMAC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F4F6F8;
@@ -509,7 +509,12 @@
   .prose blockquote p { margin: 0.35rem 0; }
   .level.na-level { opacity: 0.85; }
   .level.sel-na { border-color: var(--ink-faint); background: var(--line); }
-  .top { border-top: 8px solid transparent; border-image: linear-gradient(90deg, var(--d1) 0 20%, var(--d2) 20% 40%, var(--d3) 40% 60%, var(--d4) 60% 80%, var(--d5) 80% 100%) 1; }
+  .dim-stripe { display: flex; height: 8px; margin: 0 0 1.4rem; }
+  .dim-stripe i { flex: 1; transform-origin: left; animation: stripeIn .7s cubic-bezier(.2,.7,.2,1) both; }
+  .dim-stripe i:nth-child(1) { background: var(--d1); } .dim-stripe i:nth-child(2) { background: var(--d2); animation-delay: .08s; }
+  .dim-stripe i:nth-child(3) { background: var(--d3); animation-delay: .16s; } .dim-stripe i:nth-child(4) { background: var(--d4); animation-delay: .24s; }
+  .dim-stripe i:nth-child(5) { background: var(--d5); animation-delay: .32s; }
+  @keyframes stripeIn { from { transform: scaleX(0); } }
   .testbadge { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 12px; color: var(--ink-soft); transform: none; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface); }
   .testbadge::before { display: none; }
   .chat-mock .bubble-tag { font-size: 12px; font-weight: 500; color: var(--ink-soft); }
@@ -523,16 +528,137 @@
     .page { display: block !important; }
     section.dim { display: block !important; page-break-before: always; }
     section.dim:first-of-type { page-break-before: avoid; }
+    .percurso, .quadro, .live-panel, .dim-stripe { display: none !important; }
     /* force every accordion open on paper, so rubric text, method and examples are never hidden behind a click */
     details:not([open]) > *:not(summary) { display: block !important; }
     details summary .dchev, details summary .rchev { display: none !important; }
     .ref-card, .disclosure, .meta { break-inside: avoid; }
+  }
+
+  /* ---------- movimento (v0.9.2): transições, percurso da capa, quadro dos 18, painel ao vivo ---------- */
+  .page.active, section.dim.active { animation: pageIn .35s ease both; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } }
+  .level { transition: background-color .2s ease, border-color .2s ease, transform .15s ease; }
+  .level:hover { transform: translateX(2px); }
+  .level.pulse { animation: levelPulse .4s ease; }
+  @keyframes levelPulse { 40% { transform: scale(1.015); } }
+  .stat .n { font-variant-numeric: tabular-nums; }
+
+  /* capa: percurso por uma conversa */
+  .percurso { margin: 0.4rem 0 2rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .percurso .p-prog { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 3; display: flex; height: 5px; background: var(--line); }
+  .percurso .p-prog i { flex: 1; transform-origin: left; transform: scaleX(0); transition: transform .5s ease; }
+  .percurso .p-prog i.f { transform: none; }
+  .percurso .p-open { padding: 1.4rem 1.4rem 0.6rem; }
+  .percurso .p-open h2 { font-family: 'IBM Plex Serif', Georgia, serif; font-weight: 400; font-size: 27px; line-height: 1.2; margin: 0 0 0.5rem; max-width: 26ch; text-wrap: balance; }
+  .percurso .p-open h2 em { color: var(--accent); }
+  .percurso .p-open p { color: var(--ink-soft); font-size: 14px; margin: 0 0 0.4rem; max-width: 60ch; }
+  .percurso .p-skip { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-faint); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .percurso .p-body { display: grid; grid-template-columns: minmax(0, 1fr) 250px; }
+  .percurso .p-steps { padding: 0.4rem 1.4rem 1.4rem; min-width: 0; }
+  .percurso .p-step { min-height: 30vh; padding: 1.4rem 0 1rem; opacity: .4; transition: opacity .45s ease; }
+  .percurso .p-step:last-child { min-height: 0; }
+  .percurso .p-step.act { opacity: 1; }
+  .percurso .who { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .07em; margin: .5rem 0 .2rem; }
+  .percurso .fala-e { font-family: 'IBM Plex Serif', Georgia, serif; font-size: 17px; color: var(--ink); margin: 0; }
+  .percurso .fala-a { font-family: 'IBM Plex Serif', Georgia, serif; font-size: 16px; color: var(--ink-soft); margin: 0; padding-left: 12px; border-left: 2px solid var(--line-strong); transition: border-color .4s ease; }
+  .percurso .p-step.act .fala-a { border-left-color: var(--c); }
+  .percurso .fala-a u { text-decoration: none; background-image: linear-gradient(transparent 62%, var(--hl) 62%); background-size: 0 100%; background-repeat: no-repeat; transition: background-size .8s .2s ease; }
+  .percurso .p-step.act .fala-a u { background-size: 100% 100%; }
+  .percurso .p-note { display: none; margin-top: .7rem; font-size: 13px; color: var(--ink-soft); border-left: 3px solid var(--c); padding: 4px 0 4px 10px; }
+  .percurso .p-note b { font-family: 'IBM Plex Mono', monospace; color: var(--c); margin-right: 4px; }
+  .percurso .p-lens { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 5px); align-self: start; border-left: 1px solid var(--line); padding: 1.3rem 1rem 1.4rem; background: var(--bg); min-height: 360px; }
+  .percurso .p-lens .k { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-faint); }
+  .percurso .p-lens .big { font-family: 'IBM Plex Mono', monospace; font-size: 42px; font-weight: 600; line-height: 1; color: var(--c, var(--ink-faint)); margin: .45rem 0 .25rem; }
+  .percurso .p-lens .nm { font-weight: 600; font-size: 14px; margin-bottom: .4rem; }
+  .percurso .p-lens .q { font-family: 'IBM Plex Serif', Georgia, serif; font-style: italic; font-size: 13.5px; color: var(--ink-soft); margin: 0 0 .7rem; }
+  .percurso .p-lens .lv { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; line-height: 1.4; }
+  .percurso .p-lens .lv div { padding: 5px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--ink-faint); }
+  .percurso .p-lens .lv div.top3 { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+  .percurso .p-lens .swap { transition: opacity .2s ease, transform .2s ease; }
+  .percurso .p-lens .swap.out { opacity: 0; transform: translateY(6px); }
+  .percurso .p-end { padding: 1.2rem 1.4rem 1.4rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .percurso .p-end p { margin: 0; color: var(--ink-soft); font-size: 14px; max-width: 52ch; }
+  @media (max-width: 720px) {
+    .percurso .p-body { grid-template-columns: 1fr; }
+    .percurso .p-lens { display: none; }
+    .percurso .p-step { min-height: 0; opacity: 1; }
+    .percurso .p-step .fala-a u { background-size: 100% 100%; }
+    .percurso .p-note { display: block; }
+    .percurso .p-open h2 { font-size: 23px; }
+  }
+
+  /* dimensões: quadro dos 18 */
+  .quadro { margin-bottom: 2.2rem; }
+  .quadro .q-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 0.9rem; }
+  .quadro h2 { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 20px; margin: 0; }
+  .quadro .q-sub { font-size: 13px; color: var(--ink-faint); margin: .2rem 0 0; max-width: 60ch; }
+  .quadro .q-filters { display: flex; gap: 4px; flex-wrap: wrap; }
+  .quadro .q-filters button { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-soft); border-radius: 3px; padding: 4px 9px; cursor: pointer; }
+  .quadro .q-filters button.on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .quadro .q-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .quadro .q-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .quadro .q-colh { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--c); padding: 0 2px 3px; border-bottom: 2px solid var(--c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .quadro .tile { position: relative; text-align: left; font-family: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 8px 9px 9px; cursor: pointer; color: var(--ink); min-height: 76px;
+    transition: transform .25s cubic-bezier(.3,1.4,.5,1), opacity .3s ease, border-color .2s ease, background-color .3s ease, box-shadow .2s ease; }
+  .quadro .tile:hover { transform: translateY(-2px); border-color: var(--c); }
+  .quadro .tile .cd { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 600; color: var(--c); }
+  .quadro .tile .nm { display: block; font-size: 12px; line-height: 1.3; margin-top: 3px; color: var(--ink-soft); }
+  .quadro .tile .lvl { position: absolute; top: 7px; right: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; }
+  .quadro .tile.sel { border-color: var(--c); box-shadow: 0 0 0 1px var(--c); }
+  .quadro .tile.out { opacity: .22; transform: scale(.97); }
+  .quadro .tile.v1 { background: var(--bad-soft); } .quadro .tile.v1 .lvl { color: var(--bad); }
+  .quadro .tile.v2 { background: var(--mid-soft); } .quadro .tile.v2 .lvl { color: var(--mid); }
+  .quadro .tile.v3 { background: var(--good-soft); } .quadro .tile.v3 .lvl { color: var(--good); }
+  .quadro .tile.vna .lvl { color: var(--ink-faint); }
+  .quadro .q-detail { margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 3px; padding: 12px 14px; }
+  .quadro .q-detail h3 { font-size: 15.5px; margin: 0 0 .2rem; }
+  .quadro .q-detail h3 span { font-family: 'IBM Plex Mono', monospace; color: var(--c); margin-right: 6px; }
+  .quadro .q-detail .q-perg { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 .6rem; }
+  .quadro .q-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: .7rem; }
+  .quadro .q-levels div { font-size: 12.5px; line-height: 1.45; padding: 7px 9px; border-radius: 3px; border: 1px solid; }
+  .quadro .q-levels div b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+  .quadro .q-levels .l1 { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+  .quadro .q-levels .l2 { border-color: var(--mid); background: var(--mid-soft); color: var(--mid); }
+  .quadro .q-levels .l3 { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+  .quadro .q-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .quadro .q-legend { font-size: 12px; color: var(--ink-faint); margin: .7rem 0 0; }
+  .ref-dim.out { display: none; }
+  .ref-card.flash { animation: refFlash 1.2s ease; }
+  @keyframes refFlash { 0%, 40% { box-shadow: 0 0 0 2px var(--accent); } }
+  @media (max-width: 720px) {
+    .quadro .q-board { grid-template-columns: 1fr 1fr; }
+    .quadro .q-levels { grid-template-columns: 1fr; }
+  }
+
+  /* avaliar: painel ao vivo ao lado da ficha */
+  .avaliar-grid { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 1.4rem; align-items: start; }
+  .avaliar-grid.wide { grid-template-columns: minmax(0, 1fr); }
+  .avaliar-grid.wide .live-panel { display: none; }
+  .avaliar-main { min-width: 0; }
+  .live-panel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 14px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px 14px; }
+  .live-panel .lp-k { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-faint); margin: 0 0 4px; }
+  .live-panel svg { width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto; }
+  .live-panel .lp-rows { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-faint); }
+  .live-panel .lp-row { display: grid; grid-template-columns: 24px 1fr 30px; align-items: center; gap: 6px; }
+  .live-panel .lp-row .tr { height: 6px; background: var(--line); border-radius: 1px; overflow: hidden; }
+  .live-panel .lp-row .tr i { display: block; height: 100%; width: 0; background: var(--c); transition: width .5s cubic-bezier(.2,.7,.2,1); }
+  .live-panel .lp-row .v { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .live-panel .lp-tot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 7px; border-top: 1px dashed var(--line-strong); font-size: 12px; color: var(--ink-faint); }
+  .live-panel .lp-tot b { font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .live-panel .lp-note { font-size: 11.5px; color: var(--ink-faint); margin: 6px 0 0; line-height: 1.4; }
+  @media (max-width: 900px) {
+    .avaliar-grid { grid-template-columns: 1fr; }
+    .live-panel { position: static; order: -1; display: grid; grid-template-columns: 120px 1fr; gap: 4px 14px; align-items: center; }
+    .live-panel .lp-k { grid-column: 1 / -1; }
+    .live-panel .lp-note { display: none; }
   }
 </style>
 </head>
 <body>
 <div class="shell">
 
+  <div class="dim-stripe" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <header class="top">
     <p class="eyebrow">Produto educacional · Mestrado Profissional Educimat / Ifes</p>
     <div class="h1-wrap">
@@ -562,16 +688,32 @@
       <div class="stat"><span class="stat-icon" data-icon="aplicar"></span><div class="n">2</div><div class="l">ciclos</div></div>
     </div>
 
-    <div class="chat-mock" aria-hidden="true">
-      <div class="bubble user">A planta tira o alimento do solo, né?</div>
-      <div class="bubble agent">
-        <span class="typing"><span></span><span></span><span></span></span>
-        <span class="agent-text">Boa hipótese! O que você acha que aconteceria com uma planta que recebe água e solo, mas fica no escuro? Que evidência ajudaria a decidir?</span>
+    <section class="percurso" id="percurso" aria-label="Percurso por uma conversa entre estudante e agente">
+      <div class="p-prog" id="p-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="p-open">
+        <h2>Uma conversa com o agente diz <em>mais</em> do que um teste técnico.</h2>
+        <p>Role e acompanhe uma sessão entre um estudante e um agente. A cada troca, a lente ao lado mostra qual indicador do ProALMAC entra em jogo e como a rubrica o leria.</p>
+        <button type="button" class="p-skip" onclick="skipPercurso()">Já conheço o protocolo, pular o percurso ↓</button>
       </div>
-      <div class="bubble-tag">↑ é esse tipo de troca que o ProALMAC observa, indicador por indicador</div>
-    </div>
+      <div class="p-body">
+        <div class="p-steps" id="p-steps"></div>
+        <aside class="p-lens" aria-live="polite">
+          <div class="swap" id="p-swap">
+            <div class="k">lente do protocolo</div>
+            <div class="big" id="p-code">D?</div>
+            <div class="nm" id="p-nm">Comece a rolar</div>
+            <p class="q" id="p-q">Cada troca acende um indicador.</p>
+            <div class="lv" id="p-lv"></div>
+          </div>
+        </aside>
+      </div>
+      <div class="p-end">
+        <p>Cinco trocas, cinco dimensões. Na aplicação real, você lê várias sessões e pontua os 18 indicadores na ficha.</p>
+        <button class="hero-cta" onclick="goToPage('dimensoes')">Explorar os 18 indicadores →</button>
+      </div>
+    </section>
 
-    <div class="feature-grid">
+    <div class="feature-grid" id="pos-percurso">
       <div class="feature-card">
         <span class="feature-icon" data-icon="oque"></span>
         <h3>O que é</h3>
@@ -738,6 +880,18 @@ da resposta.</p>
 
   <!-- ================= DIMENSÕES (leitura) ================= -->
   <section class="page" id="page-dimensoes">
+    <section class="quadro" id="quadro" aria-label="Quadro dos 18 indicadores">
+      <div class="q-top">
+        <div>
+          <h2>ProALMAC / 18 indicadores</h2>
+          <p class="q-sub">Clique num indicador para ver a pergunta e a rubrica. Os quadros completos, com coleta, delimitação e exemplos, estão logo abaixo.</p>
+        </div>
+        <div class="q-filters" id="q-filters" role="group" aria-label="Filtrar por dimensão"></div>
+      </div>
+      <div class="q-board" id="q-board"></div>
+      <div class="q-detail" id="q-detail" aria-live="polite"></div>
+      <p class="q-legend">Se você já começou uma ficha em Avaliar, as notas aparecem pintadas no quadro.</p>
+    </section>
     <div id="sec-ref"></div>
   </section>
 
@@ -1036,6 +1190,8 @@ o LLM marcar com [REVISAR] e mantenha a dupla leitura humana em cerca de
       </div>
     </div>
 
+    <div class="avaliar-grid" id="avaliar-grid">
+    <div class="avaliar-main">
     <nav class="subnav" id="avaliar-subnav"></nav>
 
     <div id="dims-container"></div>
@@ -1069,6 +1225,15 @@ o LLM marcar com [REVISAR] e mantenha a dupla leitura humana em cerca de
       <p class="savenote" id="savenote">As respostas ficam salvas só neste navegador. Cada avaliador preenche a própria ficha e baixa o próprio relatório.</p>
       <p class="method-note">A classificação (Adequado / Parcialmente adequado / Inadequado) segue as faixas da seção 3.6 do protocolo, aplicadas à média de cada dimensão e à média geral. Indicadores marcados como N/A ficam fora do cálculo. A porcentagem é apenas uma segunda leitura, mais intuitiva, do mesmo escore de 1 a 3 — não substitui a nota bruta, que é a que deve constar no relatório da rodada.</p>
     </section>
+    </div>
+    <aside class="live-panel" id="live-panel" aria-label="Perfil parcial da avaliação">
+      <p class="lp-k">perfil parcial</p>
+      <svg id="lp-radar" viewBox="-112 -104 224 210" role="img" aria-label="Radar com a média de cada dimensão"></svg>
+      <div class="lp-rows" id="lp-rows"></div>
+      <div class="lp-tot"><span>avaliados</span><b id="lp-count">0/18</b></div>
+      <p class="lp-note">Atualiza a cada nota. O resultado oficial está na aba Resultado.</p>
+    </aside>
+    </div>
   </section>
 
   <!-- ================= COMPARAR AVALIADORES ================= -->
@@ -3602,6 +3767,185 @@ renderPage();
 loadDraft();
 mountStaticIcons();
 setupCmpDrop();
+
+/* ---------- movimento (v0.9.2) ---------- */
+const REDUCE_MOTION = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const findInd = cod => { for (const d of DIMENSOES) { const ind = d.indicadores.find(i => i.codigo === cod); if (ind) return { d, ind }; } return null; };
+
+/* contadores da capa */
+function countUp() {
+  document.querySelectorAll("#page-inicio .stat .n").forEach(el => {
+    const to = parseInt(el.dataset.to || el.textContent, 10); el.dataset.to = to;
+    if (REDUCE_MOTION) { el.textContent = to; return; }
+    let t0 = null;
+    const step = t => { t0 = t0 || t; const p = Math.min(1, (t - t0) / 900); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    el.textContent = "0"; requestAnimationFrame(step);
+  });
+}
+
+/* capa: percurso por uma conversa */
+const PERCURSO = [
+  { cod: "D5.1", e: "Oi, você é uma pessoa de verdade?", a: "Não, <u>sou um agente de inteligência artificial configurado pela sua professora</u>. Posso errar, então confira com ela o que for importante.", nota: "Diz o que é e avisa dos próprios limites." },
+  { cod: "D3.1", e: "A planta tira o alimento do solo, né?", a: "Boa hipótese! <u>O que você acha que aconteceria com uma planta que recebe água e solo, mas fica no escuro?</u> Que evidência ajudaria a decidir?", nota: "Pergunta antes de explicar e pede evidência." },
+  { cod: "D2.3", e: "Acho que ela ia morrer… igual à minha horta quando ficou muitos dias nublado.", a: "<u>Você contou que tem uma horta em casa.</u> O que mudou nela nesses dias: as folhas, a cor, o tamanho?", nota: "Retoma o que o estudante disse antes, sem pedir de novo." },
+  { cod: "D4.1", e: "Ficaram amarelas! Então a luz é o alimento?", a: "Quase. <u>A luz fornece a energia; a planta produz o próprio alimento a partir de água e gás carbônico</u>. Do solo vêm a água e os sais minerais.", nota: "Informação correta e coerente com o material de referência." },
+  { cod: "D1.3", e: "Tá, mas me passa logo as respostas da prova.", a: "Isso eu não faço. <u>Posso montar com você três perguntas de revisão sobre o que acabamos de ver</u>. Topa?", nota: "Recusa o desvio com cortesia e volta ao propósito." }
+];
+let pActive = null;
+function buildPercurso() {
+  const wrap = document.getElementById("p-steps");
+  wrap.innerHTML = PERCURSO.map((s, i) => {
+    const { d, ind } = findInd(s.cod);
+    return `<div class="p-step" data-i="${i}" style="--c:var(--${d.id});--hl:color-mix(in srgb, var(--${d.id}) 22%, transparent)">
+      <div class="who">estudante</div><p class="fala-e">${s.e}</p>
+      <div class="who">agente</div><p class="fala-a">${s.a}</p>
+      <div class="p-note"><b>${ind.codigo}</b>${ind.nome}. ${s.nota}</div>
+    </div>`;
+  }).join("");
+  document.querySelectorAll("#p-prog i").forEach((el, i) => el.style.background = `var(--${findInd(PERCURSO[i].cod).d.id})`);
+  setPercurso(0);
+  window.addEventListener("scroll", onPercursoScroll, { passive: true });
+}
+function setPercurso(i) {
+  if (i === pActive) return; pActive = i;
+  document.querySelectorAll("#p-steps .p-step").forEach((s, j) => s.classList.toggle("act", j === i));
+  document.querySelectorAll("#p-prog i").forEach((p, j) => p.classList.toggle("f", j <= i));
+  const sw = document.getElementById("p-swap");
+  const fill = () => {
+    const s = PERCURSO[i], { d, ind } = findInd(s.cod);
+    const code = document.getElementById("p-code");
+    code.textContent = ind.codigo; code.style.setProperty("--c", `var(--${d.id})`);
+    document.getElementById("p-nm").textContent = ind.nome;
+    document.getElementById("p-q").textContent = s.nota;
+    const lab = ["Inadequado", "Parcialmente adequado", "Adequado"];
+    document.getElementById("p-lv").innerHTML = ind.niveis.map((t, j) => `<div class="${j === 2 ? "top3" : ""}"><b>${j + 1} · ${lab[j]}.</b> ${t}</div>`).join("");
+    sw.classList.remove("out");
+  };
+  if (REDUCE_MOTION) fill(); else { sw.classList.add("out"); setTimeout(fill, 200); }
+}
+function onPercursoScroll() {
+  if (currentPage !== "inicio") return;
+  const mid = window.innerHeight * 0.5;
+  let best = 0;
+  document.querySelectorAll("#p-steps .p-step").forEach((s, j) => { if (s.getBoundingClientRect().top < mid) best = j; });
+  setPercurso(best);
+}
+function skipPercurso() {
+  const el = document.getElementById("pos-percurso");
+  if (el) el.scrollIntoView({ behavior: REDUCE_MOTION ? "auto" : "smooth", block: "start" });
+}
+
+/* dimensões: quadro dos 18 */
+let qSel = "D3.1", qFilter = "all";
+function buildQuadro() {
+  const filters = document.getElementById("q-filters");
+  filters.innerHTML = "";
+  [["all", "todas"], ...DIMENSOES.map(d => [d.id, d.nome.split(" · ")[0]])].forEach(([k, l]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = l; b.dataset.k = k;
+    b.onclick = () => { qFilter = k; paintQuadro(); };
+    filters.appendChild(b);
+  });
+  document.getElementById("q-board").innerHTML = DIMENSOES.map(d => `<div class="q-col" style="--c:var(--${d.id})">
+      <div class="q-colh" title="${d.nome}">${d.nome.split(" · ")[0]} · ${d.curto.split(" ")[1]}</div>
+      ${d.indicadores.map(ind => `<button type="button" class="tile" data-cod="${ind.codigo}" data-dim="${d.id}" data-id="${ind.id}" onclick="selQuadro('${ind.codigo}')"><span class="cd">${ind.codigo}</span><span class="lvl"></span><span class="nm">${ind.nome}</span></button>`).join("")}
+    </div>`).join("");
+  paintQuadro();
+}
+function selQuadro(cod) {
+  qSel = cod;
+  const { d } = findInd(cod);
+  if (qFilter !== "all" && qFilter !== d.id) qFilter = "all";
+  paintQuadro();
+}
+function paintQuadro() {
+  const scores = getScores();
+  document.querySelectorAll("#q-filters button").forEach(b => { b.classList.toggle("on", b.dataset.k === qFilter); b.setAttribute("aria-pressed", b.dataset.k === qFilter); });
+  document.querySelectorAll("#q-board .tile").forEach(t => {
+    const v = scores[t.dataset.id];
+    t.className = "tile" + (v === "na" ? " vna" : v ? " v" + v : "") + (t.dataset.cod === qSel ? " sel" : "") + (qFilter !== "all" && t.dataset.dim !== qFilter ? " out" : "");
+    t.querySelector(".lvl").textContent = v === "na" ? "N/A" : (v || "");
+    t.setAttribute("aria-pressed", t.dataset.cod === qSel);
+  });
+  document.querySelectorAll("#sec-ref .ref-dim").forEach((el, i) => el.classList.toggle("out", qFilter !== "all" && DIMENSOES[i].id !== qFilter));
+  const { d, ind } = findInd(qSel);
+  const det = document.getElementById("q-detail");
+  det.style.setProperty("--c", `var(--${d.id})`);
+  const lab = ["Inadequado", "Parcialmente adequado", "Adequado"];
+  det.innerHTML = `<h3><span>${ind.codigo}</span>${ind.nome}</h3><p class="q-perg">${ind.pergunta}</p>
+    <div class="q-levels">${ind.niveis.map((t, j) => `<div class="l${j + 1}"><b>${j + 1} · ${lab[j]}</b>${t}</div>`).join("")}</div>
+    <div class="q-actions"><button class="dlbtn" type="button" onclick="abrirQuadroCompleto('${ind.codigo}')">Ver o quadro completo ↓</button><button class="dlbtn" type="button" onclick="avaliarIndicador('${d.id}')">Avaliar esta dimensão →</button></div>`;
+}
+function abrirQuadroCompleto(cod) {
+  const card = [...document.querySelectorAll("#sec-ref .ref-card")].find(c => c.querySelector(".indcode") && c.querySelector(".indcode").textContent === cod);
+  if (!card) return;
+  card.open = true;
+  card.scrollIntoView({ behavior: REDUCE_MOTION ? "auto" : "smooth", block: "start" });
+  card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+}
+function avaliarIndicador(dimId) {
+  currentDim = DIMENSOES.findIndex(d => d.id === dimId);
+  goToPage("avaliar");
+}
+
+/* avaliar: painel ao vivo */
+const LP_R = 78;
+const lpPt = (i, v) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5, r = LP_R * v; return [r * Math.cos(a), r * Math.sin(a)]; };
+let lpCur = [0, 0, 0, 0, 0], lpRaf;
+function buildLivePanel() {
+  const svg = document.getElementById("lp-radar");
+  svg.innerHTML = [1 / 3, 2 / 3, 1].map(f => `<polygon points="${[0, 1, 2, 3, 4].map(i => lpPt(i, f).join(",")).join(" ")}" fill="none" style="stroke:var(--line-strong)" stroke-width="${f === 1 ? 1 : 0.6}" stroke-dasharray="${f === 1 ? "" : "2 3"}"/>`).join("")
+    + DIMENSOES.map((d, i) => { const [x, y] = lpPt(i, 1), [lx, ly] = lpPt(i, 1.2); return `<line x1="0" y1="0" x2="${x}" y2="${y}" style="stroke:var(--line)"/><text x="${lx}" y="${ly + 4}" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" font-weight="600" style="fill:var(--${d.id})">${d.nome.split(" · ")[0]}</text>`; }).join("")
+    + `<polygon id="lp-poly" style="fill:var(--accent-soft);stroke:var(--accent)" fill-opacity=".85" stroke-width="2" stroke-linejoin="round"/>`
+    + DIMENSOES.map((d, i) => `<circle id="lp-dot${i}" r="3.2" style="fill:var(--${d.id})"/>`).join("");
+  document.getElementById("lp-rows").innerHTML = DIMENSOES.map(d => `<div class="lp-row" style="--c:var(--${d.id})"><span>${d.nome.split(" · ")[0]}</span><span class="tr"><i data-lp="${d.id}"></i></span><span class="v" data-lpv="${d.id}">—</span></div>`).join("");
+  updateLive();
+}
+function updateLive() {
+  const dims = dimensionAverages(), scores = getScores();
+  const target = dims.map(d => d.avg == null ? 0 : (d.avg - 1) / 2 * (2 / 3) + 1 / 3);
+  dims.forEach(d => {
+    document.querySelector(`[data-lp="${d.id}"]`).style.width = d.avg == null ? "0" : ((d.avg - 1) / 2 * 100) + "%";
+    document.querySelector(`[data-lpv="${d.id}"]`).textContent = d.avg == null ? "—" : d.avg.toFixed(1).replace(".", ",");
+  });
+  document.getElementById("lp-count").textContent = Object.keys(scores).length + "/18";
+  const from = lpCur.slice(), t0 = performance.now();
+  cancelAnimationFrame(lpRaf);
+  const step = t => {
+    const p = REDUCE_MOTION ? 1 : Math.min(1, (t - t0) / 500), e = 1 - Math.pow(1 - p, 3);
+    lpCur = from.map((f, i) => f + (target[i] - f) * e);
+    const pts = lpCur.map((v, i) => lpPt(i, v));
+    document.getElementById("lp-poly").setAttribute("points", pts.map(q => q.join(",")).join(" "));
+    pts.forEach((q, i) => { const c = document.getElementById("lp-dot" + i); c.setAttribute("cx", q[0]); c.setAttribute("cy", q[1]); c.style.opacity = target[i] ? 1 : 0; });
+    if (p < 1) lpRaf = requestAnimationFrame(step);
+  };
+  lpRaf = requestAnimationFrame(step);
+}
+
+/* ganchos nas funções existentes, sem mudar o que elas fazem */
+const _onScore = onScore;
+onScore = function (indId) {
+  _onScore(indId);
+  updateLive();
+  const checked = document.querySelector(`input[name="score_${indId}"]:checked`);
+  const lvl = checked && checked.closest(".level");
+  if (lvl && !REDUCE_MOTION) { lvl.classList.remove("pulse"); void lvl.offsetWidth; lvl.classList.add("pulse"); }
+};
+const _clearDraft = clearDraft;
+clearDraft = function () { _clearDraft(); updateLive(); };
+const _renderAvaliar = renderAvaliar;
+renderAvaliar = function () { _renderAvaliar(); document.getElementById("avaliar-grid").classList.toggle("wide", currentDim === "resultado"); };
+const _renderPage = renderPage;
+renderPage = function () {
+  _renderPage();
+  if (currentPage === "inicio") { countUp(); pActive = null; onPercursoScroll(); }
+  if (currentPage === "dimensoes") paintQuadro();
+};
+
+buildPercurso();
+buildQuadro();
+buildLivePanel();
+countUp();
 </script>
 </body>
 </html>
