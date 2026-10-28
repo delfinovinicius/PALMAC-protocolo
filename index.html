@@ -8,45 +8,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
+  /* tema: azul-marinho escuro por padrão; o botão "Modo claro" (classe .tema-claro) e a impressão usam o claro */
   :root {
-    --bg: #F4F6F8;
-    --surface: #FFFFFF;
-    --ink: #16202A;
-    --ink-soft: #3F4B58;
-    --ink-faint: #5F6B78;
-    --line: #DCE1E7;
-    --line-strong: #B7C0CA;
-    --accent: #2B5C8A;
-    --accent-soft: #E6EEF6;
-    --accent-deep: #1D4166;
-    --mark: #A8461A;
-    --mark-soft: #FBEDE5;
-    --bad: #B23A2E;
-    --bad-soft: #F8E4E1;
-    --mid: #8A5D0F;
-    --mid-soft: #F6EBD3;
-    --good: #23704A;
-    --good-soft: #E2F1E8;
-    --d1: #2B5C8A; --d2: #1F7A6E; --d3: #B4501A; --d4: #6B4FA0; --d5: #A23B4C;
+    --bg: #0F151C; --surface: #17202A; --ink: #E8EDF2; --ink-soft: #B6C1CC; --ink-faint: #8C99A6;
+    --line: #27323E; --line-strong: #364452; --accent: #8DB6E0; --accent-soft: #1C2B3B; --accent-deep: #B5D0EC;
+    --mark: #E9A27F; --mark-soft: #3A261C;
+    --bad: #EE9A8F; --bad-soft: #3A2220; --mid: #E3BA73; --mid-soft: #33291A; --good: #86CBA3; --good-soft: #1A3226;
+    --d1: #8DB6E0; --d2: #7CCBBE; --d3: #E9A27F; --d4: #B9A5E3; --d5: #E79AA8;
+    color-scheme: dark;
     --radius: 4px;
     --grain: none;
   }
-  [data-theme="dark"] {
-    --bg: #0F151C; --surface: #17202A; --ink: #E8EDF2; --ink-soft: #B6C1CC; --ink-faint: #8C99A6;
-      --line: #27323E; --line-strong: #364452; --accent: #8DB6E0; --accent-soft: #1C2B3B; --accent-deep: #B5D0EC;
-      --mark: #E9A27F; --mark-soft: #3A261C;
-      --bad: #EE9A8F; --bad-soft: #3A2220; --mid: #E3BA73; --mid-soft: #33291A; --good: #86CBA3; --good-soft: #1A3226;
-      --d1: #8DB6E0; --d2: #7CCBBE; --d3: #E9A27F; --d4: #B9A5E3; --d5: #E79AA8;
+  :root.tema-claro {
+    --bg: #F4F6F8; --surface: #FFFFFF; --ink: #16202A; --ink-soft: #3F4B58; --ink-faint: #5F6B78;
+    --line: #DCE1E7; --line-strong: #B7C0CA; --accent: #2B5C8A; --accent-soft: #E6EEF6; --accent-deep: #1D4166;
+    --mark: #A8461A; --mark-soft: #FBEDE5;
+    --bad: #B23A2E; --bad-soft: #F8E4E1; --mid: #8A5D0F; --mid-soft: #F6EBD3; --good: #23704A; --good-soft: #E2F1E8;
+    --d1: #2B5C8A; --d2: #1F7A6E; --d3: #B4501A; --d4: #6B4FA0; --d5: #A23B4C;
+    color-scheme: light;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0F151C; --surface: #17202A; --ink: #E8EDF2; --ink-soft: #B6C1CC; --ink-faint: #8C99A6;
-      --line: #27323E; --line-strong: #364452; --accent: #8DB6E0; --accent-soft: #1C2B3B; --accent-deep: #B5D0EC;
-      --mark: #E9A27F; --mark-soft: #3A261C;
-      --bad: #EE9A8F; --bad-soft: #3A2220; --mid: #E3BA73; --mid-soft: #33291A; --good: #86CBA3; --good-soft: #1A3226;
-      --d1: #8DB6E0; --d2: #7CCBBE; --d3: #E9A27F; --d4: #B9A5E3; --d5: #E79AA8;
-    }
-  }
+  @media print { :root, :root.tema-claro {
+    --bg: #F4F6F8; --surface: #FFFFFF; --ink: #16202A; --ink-soft: #3F4B58; --ink-faint: #5F6B78;
+    --line: #DCE1E7; --line-strong: #B7C0CA; --accent: #2B5C8A; --accent-soft: #E6EEF6; --accent-deep: #1D4166;
+    --mark: #A8461A; --mark-soft: #FBEDE5;
+    --bad: #B23A2E; --bad-soft: #F8E4E1; --mid: #8A5D0F; --mid-soft: #F6EBD3; --good: #23704A; --good-soft: #E2F1E8;
+    --d1: #2B5C8A; --d2: #1F7A6E; --d3: #B4501A; --d4: #6B4FA0; --d5: #A23B4C;
+    color-scheme: light;
+  } }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
@@ -76,7 +64,7 @@
   .testbadge::before { content: ""; position: absolute; inset: 0; border: 1.5px solid var(--mark); border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; opacity: 0.55; }
   .hero-cta {
     font-family: inherit; font-size: 13.5px; font-weight: 500; padding: 10px 18px; border-radius: 999px;
-    border: none; background: var(--accent); color: #fff; cursor: pointer; transition: transform .12s ease, opacity .15s ease;
+    border: none; background: var(--accent); color: var(--bg); cursor: pointer; transition: transform .12s ease, opacity .15s ease;
   }
   .hero-cta:hover { opacity: 0.88; transform: translateY(-1px); }
   .hero-cta.ghost { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
@@ -425,8 +413,8 @@
   }
   @media (max-width: 560px) { .dl-grid .dl-card { transform: none; } .dl-card.soon:hover { transform: none; } }
   .footer-actions button:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-  .footer-actions button.dl-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .footer-actions button.dl-primary:hover { color: #fff; opacity: 0.9; }
+  .footer-actions button.dl-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .footer-actions button.dl-primary:hover { color: var(--bg); opacity: 0.9; }
   /* comparar avaliadores */
   .cmp-drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.2rem 0 0.4rem; }
   @media (max-width: 560px) { .cmp-drop-grid { grid-template-columns: 1fr; } }
@@ -653,7 +641,11 @@
     .live-panel .lp-k { grid-column: 1 / -1; }
     .live-panel .lp-note { display: none; }
   }
+  .tema-btn { font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-soft); cursor: pointer; }
+  .tema-btn:hover { border-color: var(--accent); color: var(--accent); }
+  @media print { .tema-btn { display: none !important; } }
 </style>
+<script>try { if (localStorage.getItem("proalmac_tema") === "claro") document.documentElement.classList.add("tema-claro"); } catch (e) {}</script>
 </head>
 <body>
 <div class="shell">
@@ -674,6 +666,7 @@
     <div class="hero-row">
       <span class="testbadge">Versão 0.9 · em validação</span>
       <button class="hero-cta" onclick="goToPage('avaliar')">Preencher a ficha de avaliação →</button>
+      <button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo claro</button>
     </div>
   </header>
 
@@ -3941,6 +3934,13 @@ renderPage = function () {
   if (currentPage === "inicio") { countUp(); pActive = null; onPercursoScroll(); }
   if (currentPage === "dimensoes") paintQuadro();
 };
+
+function trocarTema() {
+  const claro = document.documentElement.classList.toggle("tema-claro");
+  try { localStorage.setItem("proalmac_tema", claro ? "claro" : "escuro"); } catch (e) {}
+  document.getElementById("tema-btn").textContent = claro ? "Modo escuro" : "Modo claro";
+}
+document.getElementById("tema-btn").textContent = document.documentElement.classList.contains("tema-claro") ? "Modo escuro" : "Modo claro";
 
 buildPercurso();
 buildQuadro();
