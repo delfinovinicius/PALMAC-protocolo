@@ -654,6 +654,8 @@
   .web-box p:last-child, .web-box ul:last-child { margin-bottom: 0; }
   .web-box .box-k { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.3rem; }
   .web-box.caso { border-left-color: var(--d4); }
+  .web-box.proximo { border-left-color: var(--good); margin-top: 1.6rem; }
+  .hero-sec { background: transparent !important; color: var(--ink) !important; border: 1px solid var(--line-strong); text-decoration: none; display: inline-flex; align-items: center; }
   .web-nums { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 0.9rem 0; }
   .web-nums p.num { margin: 0; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); font-size: 13px; }
   .web-nums .n { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 700; color: var(--mark); line-height: 1.1; margin-bottom: 0.25rem; }
@@ -756,6 +758,7 @@
     <div class="hero-row">
       <span class="testbadge">Versão 0.9.13 · em validação</span>
       <button class="hero-cta" onclick="goToPage('avaliar')">Preencher a ficha de avaliação →</button>
+      <a class="hero-cta hero-sec" href="#sec-3">Começar pelo caminho curto</a>
       <button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo claro</button>
     </div>
   </header>
@@ -1341,6 +1344,7 @@
 </div></details>
 <hr/>
 
+<div class="web-box proximo"><span class="box-k">Próximo passo</span><p>pegue a bateria em <a href="#instrumentos">Instrumentos</a> e pontue na ficha de <a href="#avaliar">Avaliar</a>.</p></div>
   </section>
 
   <!-- ================= AVALIAR ================= -->
@@ -1470,6 +1474,7 @@
 </div></details>
 <hr/>
 
+<div class="web-box proximo"><span class="box-k">Próximo passo</span><p>adapte o termo de comunicação (seção <a href="#sec-5-6">5.6</a>) antes da primeira aula com o agente.</p></div>
   </section>
 
   <!-- ================= VALIDAÇÃO ================= -->
@@ -1798,6 +1803,7 @@
 <li><strong>Quem interpreta não pontua.</strong> Se houver um colega, um faz o papel do estudante e o outro pontua a transcrição sem saber qual é o agente.</li>
 </ul>
 
+<div class="web-box proximo"><span class="box-k">Próximo passo</span><p>registre o resultado na ficha de <a href="#avaliar">Avaliar</a> e feche a rodada com a ficha-resumo (seção <a href="#sec-5-8">5.8</a>).</p></div>
   </section>
 
   <!-- ================= INSTRUMENTOS ================= -->
@@ -2319,6 +2325,7 @@
 <p>Depois do Ciclo 2, transforme erros reais do agente em desafio para os estudantes: “Esta resposta tem um erro. Qual?”. A atividade ensina a ler a IA criticamente e reaproveita o material da avaliação. Retire dos trechos qualquer dado que identifique estudantes.</p>
 <hr/>
 </section><div class="llm-optional"><h2 id="prompt-do-avaliador-llm-opcional">Prompt do avaliador LLM (opcional)</h2>
+<p>O prompt pontua 16 dos 18 indicadores. D1.1 depende do tempo de resposta e D4.2 depende de comparar conversas diferentes, então nenhum dos dois pode ser julgado numa única transcrição: o prompt deixa essas notas vazias, e elas continuam com você. Use o prompt numa conversa por vez; para a nota da rodada, junte as leituras como faria com as suas (comportamento predominante, seção <a href="#sec-3-5">3.5</a>).</p>
 <p>Use este prompt na leitura opcional descrita na seção <a href="#sec-3-6">3.6</a> de <a href="#aplicar">Como aplicar</a>. Antes de usar, confira se a escola permite enviar conversas a esse serviço e avise o uso no termo (seção <a href="#sec-5-6">5.6</a>). Envie só conversas com códigos no lugar dos nomes e sem outros dados pessoais, prefira a conta institucional, desligue o uso das conversas para treinamento quando a plataforma oferecer a opção e apague o histórico depois. Escolha um modelo diferente do que move o agente e compare as marcações dele com as suas em cinco conversas antes de confiar nelas. Preencha os campos entre colchetes, cole a conversa no fim e salve a resposta como arquivo .csv. A planilha tem o mesmo formato da ficha do site e pode ser carregada na página <a href="#comparar">Comparar avaliadores</a>.</p>
 <div class="prompt-tools"><button class="dlbtn" onclick="copyPrompt(this)">Copiar prompt</button><button class="dlbtn" onclick="downloadPrompt()">Baixar prompt (.txt)</button></div><pre class="prompt-box" id="llm-prompt"><code>Você é um avaliador auxiliar do ProMAC (Protocolo Multidimensional de Avaliação de Agentes Conversacionais). Leia UMA sessão de conversa entre um agente educacional e um estudante e pontue o AGENTE, nunca o estudante, com a rubrica abaixo. Sua leitura é opcional e complementar: a nota que vale é a dos avaliadores humanos.
 
@@ -2429,6 +2436,7 @@ Depois do CSV, escreva uma lista curta dos itens marcados [REVISAR], com o motiv
 SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 [colar aqui]</code></pre>
 </div>
+<div class="web-box proximo"><span class="box-k">Próximo passo</span><p>depois de conversar com o agente, pontue na ficha de <a href="#avaliar">Avaliar</a>. Se um indicador ficar em amarelo, veja os <a href="#extras">Itens extras</a>.</p></div>
   </section>
 
   <!-- ================= EXEMPLO ================= -->
@@ -2509,6 +2517,18 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 
     <details class="disclosure">
       <summary><span>Ficha do produto (versão 0.9.13)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.13) e a mesma numeração de seções.</p>
+      <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
+      <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
+      <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
+      <tr><td>Capítulo 3 – Como aplicar (3.1 a 3.7)</td><td><a href="#aplicar">Como aplicar</a>; calibração em <a href="#comparar">Comparar</a></td></tr>
+      <tr><td>Capítulo 4 – Cuidados com os dados</td><td><a href="#etica">Dados</a></td></tr>
+      <tr><td>Capítulo 5 – Instrumentos (5.1 a 5.9)</td><td><a href="#instrumentos">Instrumentos</a>, com o prompt do avaliador LLM no fim</td></tr>
+      <tr><td>Capítulo 6 – Para saber mais</td><td><a href="#fundamentacao">Para saber mais</a></td></tr>
+      <tr><td>Apêndice – Itens extras (12 itens)</td><td><a href="#extras">Itens extras</a> (os 29 itens e os 16 testes)</td></tr>
+      <tr><td>Glossário</td><td><a href="#glossario">Glossário</a></td></tr>
+      <tr><td>Sobre este produto, Referências, Declaração de uso de IA</td><td>Esta página</td></tr>
+      </tbody></table></div></div>
       <div class="dbody"><div class="table-wrap"><table class="doc-table">
 
 <thead>
@@ -2603,6 +2623,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 <p>VYGOTSKY, Lev Semenovich. <strong>Mind in society</strong>: the development of higher psychological processes. Edição de Michael Cole, Vera John-Steiner, Sylvia Scribner e Ellen Souberman. Cambridge, MA: Harvard University Press, 1978.</p>
 <p>WOOD, David; BRUNER, Jerome S.; ROSS, Gail. The role of tutoring in problem solving. <strong>Journal of Child Psychology and Psychiatry</strong>, [<em>s. l.</em>], v. 17, n. 2, p. 89-100, 1976. DOI: <a href="https://doi.org/10.1111/j.1469-7610.1976.tb00381.x">10.1111/j.1469-7610.1976.tb00381.x</a>.</p>
 <h2>Estudos e pesquisas citados</h2>
+<p>LANDIS, J. Richard; KOCH, Gary G. The measurement of observer agreement for categorical data. <strong>Biometrics</strong>, [<em>s. l.</em>], v. 33, n. 1, p. 159-174, 1977. DOI: <a href="https://doi.org/10.2307/2529310">10.2307/2529310</a>. (Citado na página Comparar da versão web.)</p>
 <p>CHEN, B.; HALDAR, R.; FOWLER, M.; WEST, M.; ZILLES, C. B. Consistently good vs. occasionally great: a rubric for open-ended feedback quality from humans and machines. <strong>arXiv</strong>, 2026. Preprint arXiv:2608.21850. DOI: <a href="https://doi.org/10.48550/arXiv.2608.21850">10.48550/arXiv.2608.21850</a>.</p>
 <p>COMITÊ GESTOR DA INTERNET NO BRASIL (CGI.br). <strong>Pesquisa sobre o uso das tecnologias de informação e comunicação nas escolas brasileiras</strong>: TIC Educação 2024: resumo executivo. São Paulo: CGI.br, 2025. Disponível em: https://www.cetic.br/media/docs/publicacoes/2/pt/20251027172336/tic_educacao_2024_resumo_executivo.pdf. Acesso em: 31 out. 2026.</p>
 <p>GUPTA, A.; REDDIG, J. M.; CALÒ, T.; WEITEKAMP, D.; MACLELLAN, C. J. Beyond final answers: evaluating large language models for math tutoring. <em>In</em>: INTERNATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE IN EDUCATION (AIED), 2025. <strong>Proceedings</strong> […]. Cham: Springer, 2025. p. 323-337. (Lecture Notes in Computer Science). DOI: <a href="https://doi.org/10.1007/978-3-031-98414-3_23">10.1007/978-3-031-98414-3_23</a>.</p>
@@ -3779,7 +3800,7 @@ function renderComparar() {
   const k = cohenKappa(pairs), kw = cohenKappa(pairs, "quadratic");
   const pct = v => total ? Math.round(100 * v / total) + "%" : "-";
   let html = "";
-  if (!keys.length) html += `<p class="cmp-unpaired">Nenhuma ficha pôde ser pareada. Confira se o nome do agente e o campo "Ciclo / rodada" estão escritos igual nas duas fichas.</p>`;
+  if (!keys.length) html += `<p class="cmp-unpaired">Nenhuma ficha pôde ser pareada. Confira se o nome do agente e o campo "Ciclo / rodada / sessão" estão escritos igual nas duas fichas.</p>`;
   else html += `<div class="cmp-stats">
       <div class="cmp-stat"><div class="lbl">Fichas pareadas</div><div class="val">${keys.length}</div><div class="sub">${total} notas comparadas</div></div>
       <div class="cmp-stat"><div class="lbl">Concordância exata</div><div class="val">${pct(exact)}</div><div class="sub">mesma nota</div></div>
@@ -3787,7 +3808,7 @@ function renderComparar() {
       <div class="cmp-stat"><div class="lbl">Kappa de Cohen</div><div class="val">${fmtK(k)}</div><div class="sub">${kappaLabel(k)}</div></div>
       <div class="cmp-stat"><div class="lbl">Kappa ponderado</div><div class="val">${fmtK(kw)}</div><div class="sub">${kappaLabel(kw)} (pesos quadráticos)</div></div>
     </div>
-    <p style="font-size:12.5px;color:var(--ink-faint);">O kappa ponderado é o mais indicado para a escala do ProMAC, porque trata a diferença entre 1 e 3 como mais grave que a diferença entre 2 e 3. Notas N/A e indicadores sem nota ficam fora do cálculo. Com poucas notas (uma só ficha, por exemplo), o kappa oscila muito: use-o sobre o conjunto das sessões com dupla pontuação da rodada. Interpretação segundo Landis e Koch (1977). As linhas em destaque são as que os avaliadores devem discutir até chegar a um consenso ou levar a um terceiro avaliador.</p>
+    <p style="font-size:12.5px;color:var(--ink-faint);">O kappa ponderado é o mais indicado para a escala do ProMAC, porque trata a diferença entre 1 e 3 como mais grave que a diferença entre 2 e 3. A unidade de análise é cada indicador de cada sessão pareada: as notas de todas as sessões pareadas entram juntas num único cálculo. Notas N/A, indicadores sem nota e sessões sem par ficam fora do cálculo e aparecem listados. Com poucas notas (uma só ficha, por exemplo), o kappa oscila muito: use-o sobre o conjunto das sessões com dupla pontuação da rodada. Interpretação segundo Landis e Koch (1977). As linhas em destaque são as que os avaliadores devem discutir até chegar a um consenso ou levar a um terceiro avaliador.</p>
     <div class="footer-actions" style="margin:0.8rem 0 0.4rem;"><button onclick="exportComparacao()"><span>${icon("downloads", 15)}</span>Baixar comparação (CSV)</button></div>`;
   if (onlyA.length || onlyB.length) html += `<p class="cmp-unpaired">Sem par: ${[...onlyA.map(x => "A: " + (x.agente || "?") + " / " + (x.ciclo || "?")), ...onlyB.map(x => "B: " + (x.agente || "?") + " / " + (x.ciclo || "?"))].map(esc).join("; ")}.</p>`;
   out.innerHTML = html + tables;
