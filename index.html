@@ -886,7 +886,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.24 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.25 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -2643,6 +2643,51 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
   </section>
 
   <!-- ================= SOBRE ================= -->
+  <section class="page prose" id="page-validar">
+    <style>
+      #page-validar .vl-intro { border: 1px solid var(--line); background: var(--surface); padding: 18px 20px; border-radius: 6px; }
+      #page-validar .vl-prog { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 13px; color: var(--ink-soft); }
+      #page-validar .vl-prog .bar { flex: 1; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+      #page-validar .vl-prog .bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s; }
+      #page-validar .vl-card { border: 1px solid var(--line); border-left: 6px solid var(--c); background: var(--surface); border-radius: 6px; padding: 16px 18px; margin: 0 0 18px; }
+      #page-validar .vl-card h3 { margin: 0 0 6px; font-size: 18px; }
+      #page-validar .vl-card h3 .indcode { color: var(--c); margin-right: 8px; }
+      #page-validar .vl-q { font-weight: 600; margin: 6px 0 10px; }
+      #page-validar .vl-niv { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 6px; }
+      #page-validar .vl-niv li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; padding: 7px 10px; border-radius: 4px; }
+      #page-validar .vl-niv li b { flex: none; width: 24px; height: 24px; border-radius: 3px; color: #fff; display: grid; place-items: center; font-size: 13px; }
+      #page-validar .vl-niv .n1 { background: var(--bad-soft); } #page-validar .vl-niv .n1 b { background: var(--verm); }
+      #page-validar .vl-niv .n2 { background: var(--mid-soft); } #page-validar .vl-niv .n2 b { background: var(--amar); color: #14191F; }
+      #page-validar .vl-niv .n3 { background: var(--good-soft); } #page-validar .vl-niv .n3 b { background: var(--verde); }
+      #page-validar details.vl-more { margin: 4px 0 12px; } #page-validar details.vl-more summary { cursor: pointer; font-weight: 600; color: var(--ink-soft); }
+      #page-validar .vl-more .cv { margin-top: 10px; }
+      #page-validar .vl-more p.vl-lbl { margin: 10px 0 0; font-size: 14px; }
+      #page-validar .vl-rate { background: var(--accent-soft); border-radius: 6px; margin-top: 14px; padding: 12px 14px 4px; }
+      #page-validar .vl-rate .k { font: 600 11px/1 var(--mono, monospace); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; display: block; }
+      #page-validar fieldset { border: 0; padding: 0; margin: 0 0 10px; }
+      #page-validar legend { font-size: 14px; margin-bottom: 6px; padding: 0; }
+      #page-validar .vl-opts { display: flex; gap: 6px; flex-wrap: wrap; }
+      #page-validar .vl-opts label { cursor: pointer; }
+      #page-validar .vl-opts input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+      #page-validar .vl-opts span { display: inline-block; padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: 18px; font-size: 13.5px; background: var(--surface); }
+      #page-validar .vl-opts input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+      #page-validar .vl-opts input[value="3"]:checked + span { background: var(--verde); border-color: var(--verde); color: #fff; }
+      #page-validar .vl-opts input[value="2"]:checked + span { background: var(--amar); border-color: var(--amar); color: #14191F; }
+      #page-validar .vl-opts input[value="1"]:checked + span { background: var(--verm); border-color: var(--verm); color: #fff; }
+      #page-validar textarea { width: 100%; min-height: 70px; font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--surface); color: var(--ink); box-sizing: border-box; }
+      #page-validar .vl-cnt { font-size: 12px; color: var(--ink-faint); text-align: right; }
+      #page-validar .vl-nav { display: flex; justify-content: space-between; gap: 10px; margin: 20px 0; }
+      #page-validar .vl-nav button, #page-validar .vl-send { padding: 10px 16px; border-radius: 4px; border: 1px solid var(--ink); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+      #page-validar .vl-nav button.prim, #page-validar .vl-send { background: var(--ink); color: var(--surface); }
+      #page-validar .vl-send[disabled] { opacity: .45; cursor: not-allowed; }
+      #page-validar .vl-falta { color: var(--bad); font-size: 14px; }
+      #page-validar .vl-dimh { display: flex; align-items: center; gap: 10px; color: var(--c); margin: 6px 0 4px; }
+      #page-validar .vl-priv { font-size: 13.5px; color: var(--ink-soft); border-left: 3px solid var(--line-strong); padding-left: 10px; }
+      @media (max-width: 600px) { #page-validar .vl-card { padding: 14px; } #page-validar .vl-opts span { padding: 7px 10px; } }
+    </style>
+    <div id="vl-root"></div>
+  </section>
+
   <section class="page prose" id="page-sobre">
     <div class="credit-note">
       <p>O ProMAC é o produto educacional da dissertação de mestrado de <strong>Vinícius Delfino Silva</strong> (Educimat, Ifes, Campus Vila Velha), com orientação de Vanessa Battestin e coorientação de Rutinelli da Penha Fávero. A versão inicial do protocolo contou com a colaboração de Leonardo Braga Guimarães.</p>
@@ -2669,8 +2714,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.24)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.24) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.25)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.25) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2749,7 +2794,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.24, novembro de 2026</td>
+<td>0.9.25, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -3831,7 +3876,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.24)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.25)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
@@ -4335,6 +4380,156 @@ countUp();
     box.className = "decisao-card " + cls;
     box.innerHTML = `<span class="k">O que fazer com o resultado</span><b>${tit}</b><p>${txt}${falta}${sec}</p>`;
   };
+})();
+
+/* ---------- modo validação por especialistas (v0.9.26): ?validar ---------- */
+(function () {
+  const ATIVO = /[?&]validar\b/.test(location.search);
+  if (!ATIVO) return;
+  const TALLY = "https://tally.so/r/PRp64d";
+  const KEY = "promac_validar_v1";
+  const MAXC = 600;
+  const CRIT = [["p", "Pertinência", "o indicador importa para avaliar um agente usado no ensino"],
+                ["c", "Clareza", "a pergunta norteadora e a rubrica distinguem bem os três níveis"],
+                ["a", "Aplicabilidade", "o “Como coletar” e o “Não confundir com” permitem aplicá-lo sem dúvida"]];
+  const ESC = [["3", "Adequado"], ["2", "Parcialmente adequado"], ["1", "Inadequado"]];
+  const EST = [
+    "As cinco dimensões cobrem, em conjunto, o que importa avaliar num agente conversacional usado no ensino",
+    "O Ciclo 0 e a triagem com cartões (vermelho e amarelo) barram falhas graves antes dos testes mais longos",
+    "A bateria-modelo do Ciclo 1 (testes simulados) dá evidência suficiente para pontuar os 18 indicadores",
+    "A calibração com um colega (dois avaliadores) é viável na rotina da escola",
+    "O Ciclo 2 (aplicação com estudantes) está bem delimitado, junto com os cuidados com os dados dos estudantes",
+    "A escala de três níveis, a regra do comportamento predominante e o uso de N/A são adequados",
+    "As médias por dimensão e geral e as faixas (1,00 a 1,66; 1,67 a 2,33; 2,34 a 3,00) orientam bem a decisão sobre o agente",
+    "Os instrumentos para imprimir (ficha semáforo, questionários, termo, registro de versões, ficha-resumo) são úteis",
+    "A leitura opcional por um avaliador LLM está bem delimitada como apoio, sem substituir o professor",
+    "O protocolo serve para agentes de diferentes plataformas (ChatGPT, Gemini, Copilot e outras)",
+    "O tempo estimado (cerca de 1 hora para o Ciclo 0 e a triagem; 3 a 4 horas para um Ciclo 1) é realista"];
+  const ESTC = [["ce1", "Há sobreposição ou lacuna entre indicadores de dimensões diferentes? Se sim, quais?"],
+                ["ce2", "Falta algum indicador importante, ou algum indicador poderia sair?"],
+                ["ce3", "Comentários sobre a estrutura geral (Ciclo 0, triagem, ciclos, pontuação, instrumentos)"]];
+  const IND = []; DIMENSOES.forEach(d => d.indicadores.forEach(i => IND.push(i)));
+  const k = cod => "i" + cod.replace(/\D/g, "");          // D2.3 -> i23
+
+  let S = { passo: 0, notas: {}, est: {}, txt: {}, cod: "" };
+  try { const r = JSON.parse(localStorage.getItem(KEY) || "null"); if (r && r.notas) S = Object.assign(S, r); } catch (e) {}
+  if (!S.cod) S.cod = "V" + Math.random().toString(36).slice(2, 7).toUpperCase();
+  const salvar = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+  salvar();
+
+  ICON_PATHS.validar = '<path d="M12 3l2.6 2 3.3-.2.9 3.2 2.7 1.9-1.2 3.1 1.2 3.1-2.7 1.9-.9 3.2-3.3-.2L12 23l-2.6-2-3.3.2-.9-3.2-2.7-1.9 1.2-3.1-1.2-3.1 2.7-1.9.9-3.2 3.3.2Z" transform="scale(.9) translate(1.3 -.6)"/><path d="m8.8 12.2 2.2 2.2 4.4-4.4"/>';
+  PAGES.splice(1, 0, { id: "validar", label: "Validar" });
+  buildTopNav();
+  const navBtn = document.querySelector('#top-nav button[data-page="validar"]'); if (navBtn) navBtn.classList.add("nav-primary");
+
+  const PASSOS = ["Início"].concat(DIMENSOES.map(d => d.nome.split(" · ")[0]), ["Estrutura", "Enviar"]);
+  const totalItens = IND.length * 3 + EST.length;
+  const feitos = () => IND.reduce((n, i) => n + CRIT.filter(c => (S.notas[k(i.codigo)] || {})[c[0]]).length, 0) + EST.filter((_, j) => S.est[j]).length;
+  const dimCompleta = d => d.indicadores.every(i => CRIT.every(c => (S.notas[k(i.codigo)] || {})[c[0]]));
+  const estCompleta = () => EST.every((_, j) => S.est[j]);
+
+  function opts(name, val, onAttr) {
+    return `<div class="vl-opts">${ESC.map(([v, t]) => `<label><input type="radio" name="${name}" value="${v}" ${val === v ? "checked" : ""} ${onAttr}><span>${t} (${v})</span></label>`).join("")}</div>`;
+  }
+  function campo(id, label, ph) {
+    const v = S.txt[id] || "";
+    return `<label for="vl-${id}" style="display:block;font-weight:600;margin:10px 0 6px">${label}</label><textarea id="vl-${id}" maxlength="${MAXC}" data-t="${id}" placeholder="${ph || "Opcional"}">${esc(v)}</textarea><div class="vl-cnt"><span>${v.length}</span>/${MAXC}</div>`;
+  }
+  function cardInd(d, ind) {
+    const n = S.notas[k(ind.codigo)] || {};
+    return `<article class="vl-card" style="--c:var(--${d.id})" id="vl-${ind.codigo}">
+      <h3><span class="indcode">${ind.codigo}</span>${ind.nome}</h3>
+      <p class="def">${ind.def}</p>
+      <p class="vl-q">${ind.pergunta}</p>
+      <ol class="vl-niv">${[3, 2, 1].map(v => `<li class="n${v}"><b>${v}</b><span><strong>${["Inadequado", "Parcialmente adequado", "Adequado"][v - 1]}.</strong> ${ind.niveis[v - 1]}</span></li>`).join("")}</ol>
+      <details class="vl-more" open><summary>Como coletar, não confundir com e exemplo de conversa</summary>
+        <p class="vl-lbl"><b>Como coletar.</b> ${ind.coleta}</p>
+        ${ind.delimitacao ? `<p class="vl-lbl"><b>Não confundir com.</b> ${ind.delimitacao}</p>` : ""}
+        ${ind.exemplo ? `<div class="vl-ex">${ind.exemplo}</div>` : ""}
+      </details>
+      <div class="vl-rate"><span class="k">Sua avaliação de ${ind.codigo}</span>
+        ${CRIT.map(([c, t, h]) => `<fieldset><legend><b>${t}:</b> ${h}</legend>${opts(`vl_${k(ind.codigo)}_${c}`, n[c], `data-i="${k(ind.codigo)}" data-c="${c}"`)}</fieldset>`).join("")}
+      </div>
+    </article>`;
+  }
+  function tela() {
+    const p = S.passo, root = document.getElementById("vl-root");
+    const pct = Math.round(100 * feitos() / totalItens);
+    let h = `<h1 style="margin-bottom:6px">Validação por especialistas</h1>
+      <nav class="subnav" id="vl-subnav">${PASSOS.map((t, i) => {
+        const ok = i >= 1 && i <= 5 ? dimCompleta(DIMENSOES[i - 1]) : i === 6 ? estCompleta() : false;
+        return `<button type="button" data-p="${i}" class="${i === p ? "active" : ""}">${t}${i >= 1 && i <= 6 ? `<span class="dot ${ok ? "done" : ""}"></span>` : ""}</button>`; }).join("")}</nav>
+      <div class="vl-prog" aria-live="polite"><span>${feitos()} de ${totalItens} respostas</span><span class="bar"><i style="width:${pct}%"></i></span><span>${pct}%</span></div>`;
+    if (p === 0) {
+      h += `<div class="vl-intro">
+        <p>Obrigado por avaliar o <b>ProMAC – Protocolo Multidimensional de Avaliação de Agentes Conversacionais</b>. Nesta versão do site, cada indicador aparece com tudo o que o guia traz sobre ele, e a sua avaliação fica logo abaixo. Não é preciso abrir o PDF.</p>
+        <p><b>Como funciona:</b> (1) avalie os 18 indicadores, uma dimensão por vez, em pertinência, clareza e aplicabilidade; (2) avalie a estrutura geral do protocolo; (3) clique em <b>Enviar</b>. O formulário do Tally abre com as suas notas e pede o consentimento, a identificação, a avaliação do guia como produto educacional (MALI), a Ficha de Avaliação do Educimat e o parecer final.</p>
+        <p><b>Escala:</b> Adequado (3), Parcialmente adequado (2) ou Inadequado (1). Quando marcar 2 ou 1, conte no comentário da dimensão o que mudaria. Tempo estimado: 40 a 60 minutos no total.</p>
+        <p class="vl-priv">Suas respostas ficam salvas só neste navegador enquanto você responde; pode fechar e voltar depois pelo mesmo link. Nada é enviado até você clicar em Enviar, quando as notas e os comentários seguem para o formulário do Tally, junto com o código <b>${S.cod}</b>, que liga as duas partes.</p>
+      </div>`;
+    } else if (p >= 1 && p <= 5) {
+      const d = DIMENSOES[p - 1];
+      h += `<h2 class="vl-dimh" style="--c:var(--${d.id})">${icon("dim" + d.id.slice(1), 26)} ${d.nome}</h2><p>${d.desc}</p>`;
+      h += d.indicadores.map(ind => cardInd(d, ind)).join("");
+      h += campo("c" + d.id.slice(1), `Comentários e sugestões sobre a ${d.nome.split(" · ")[0]} (indique o código do indicador)`, "Ex.: 3.1 – a diferença entre os níveis 2 e 3 não está clara porque...");
+    } else if (p === 6) {
+      h += `<h2>Estrutura geral do protocolo</h2><p>Como as partes do ProMAC funcionam juntas: os ciclos de aplicação, a pontuação e a decisão, e os instrumentos. Se precisar, consulte as páginas <a href="#aplicar">Como aplicar</a> e <a href="#instrumentos">Instrumentos</a> e volte aqui: suas respostas ficam guardadas.</p>`;
+      h += `<div class="vl-card" style="--c:var(--ink-faint)">${EST.map((t, j) => `<fieldset><legend>${j + 1}. ${t}</legend>${opts("vl_est_" + j, S.est[j], `data-e="${j}"`)}</fieldset>`).join("")}</div>`;
+      h += ESTC.map(([id, t]) => campo(id, t)).join("");
+    } else {
+      const faltaD = DIMENSOES.filter(d => !dimCompleta(d)).map(d => d.nome.split(" · ")[0]);
+      const falta = faltaD.concat(estCompleta() ? [] : ["Estrutura"]);
+      h += `<h2>Enviar</h2>`;
+      h += falta.length ? `<p class="vl-falta">Ainda faltam respostas em: ${falta.join(", ")}. Você pode enviar assim mesmo, mas as notas que faltarem chegam em branco.</p>` : `<p>Tudo respondido. Ao clicar em Enviar, o formulário do Tally abre numa nova aba com as suas notas. Lá você completa o consentimento, a identificação, a avaliação do guia (MALI), a Ficha do Educimat e o parecer final, e envia.</p>`;
+      h += `<p><button type="button" class="vl-send" id="vl-send">Enviar e continuar no Tally →</button></p>
+        <p class="vl-priv">Seu código de validação: <b>${S.cod}</b>. Se o Tally não abrir, copie o resumo abaixo e envie ao autor por e-mail.</p>
+        <details class="vl-more"><summary>Ver resumo das respostas</summary><pre style="white-space:pre-wrap;font-size:12.5px" id="vl-resumo">${esc(resumo())}</pre></details>`;
+    }
+    h += `<div class="vl-nav">${p === 0 ? "<span></span>" : `<button type="button" id="vl-prev">← Voltar</button>`}${p < 7 ? `<button type="button" class="prim" id="vl-next">${p === 0 ? "Começar" : "Avançar"} →</button>` : ""}</div>`;
+    root.innerHTML = h;
+    root.querySelectorAll("#vl-subnav button").forEach(b => b.onclick = () => ir(+b.dataset.p));
+    const pv = root.querySelector("#vl-prev"), nx = root.querySelector("#vl-next");
+    if (pv) pv.onclick = () => ir(p - 1); if (nx) nx.onclick = () => ir(p + 1);
+    root.querySelectorAll("input[data-i]").forEach(r => r.onchange = () => { (S.notas[r.dataset.i] = S.notas[r.dataset.i] || {})[r.dataset.c] = r.value; salvar(); prog(); });
+    root.querySelectorAll("input[data-e]").forEach(r => r.onchange = () => { S.est[r.dataset.e] = r.value; salvar(); prog(); });
+    root.querySelectorAll("textarea[data-t]").forEach(t => t.oninput = () => { S.txt[t.dataset.t] = t.value.slice(0, MAXC); t.nextElementSibling.firstElementChild.textContent = t.value.length; salvar(); });
+    const env = root.querySelector("#vl-send"); if (env) env.onclick = enviar;
+    root.querySelectorAll(".vl-ex .cv").forEach(box => {
+      if (!window.tocarConversa) return;
+      const b = document.createElement("button"); b.type = "button"; b.className = "rever"; b.textContent = "▶ ver a conversa acontecer";
+      b.onclick = () => window.tocarConversa(box); box.appendChild(b);
+    });
+  }
+  function prog() {
+    const pct = Math.round(100 * feitos() / totalItens), el = document.querySelector("#page-validar .vl-prog");
+    if (el) { el.firstElementChild.textContent = `${feitos()} de ${totalItens} respostas`; el.querySelector("i").style.width = pct + "%"; el.lastElementChild.textContent = pct + "%"; }
+    document.querySelectorAll("#vl-subnav button").forEach((b, i) => { const dot = b.querySelector(".dot"); if (dot) dot.classList.toggle("done", i <= 5 ? dimCompleta(DIMENSOES[i - 1]) : estCompleta()); });
+  }
+  function ir(p) { S.passo = Math.max(0, Math.min(7, p)); salvar(); tela(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  function campos() {
+    const q = { v: S.cod, versao: "0.9.25" };
+    IND.forEach(i => { const n = S.notas[k(i.codigo)] || {}; q[k(i.codigo)] = CRIT.map(c => n[c[0]] || "-").join(""); });
+    q.est = EST.map((_, j) => S.est[j] || "-").join("");
+    ["c1", "c2", "c3", "c4", "c5", "ce1", "ce2", "ce3"].forEach(id => { q[id] = (S.txt[id] || "").trim(); });
+    return q;
+  }
+  function resumo() {
+    const q = campos();
+    const lin = [`Código: ${q.v}`, "Notas por indicador (pertinência, clareza, aplicabilidade):"];
+    IND.forEach(i => lin.push(`  ${i.codigo} ${i.nome}: ${q[k(i.codigo)].split("").join(" · ")}`));
+    lin.push(`Estrutura (itens 1 a ${EST.length}): ${q.est.split("").join(" ")}`);
+    [["c1", "D1"], ["c2", "D2"], ["c3", "D3"], ["c4", "D4"], ["c5", "D5"], ["ce1", "Sobreposição ou lacuna"], ["ce2", "Indicador faltando ou sobrando"], ["ce3", "Estrutura"]].forEach(([id, t]) => { if (q[id]) lin.push(`${t}: ${q[id]}`); });
+    return lin.join("\n");
+  }
+  function enviar() {
+    const q = campos(), u = new URLSearchParams();
+    Object.entries(q).forEach(([a, b]) => { if (b) u.set(a, b); });
+    window.open(TALLY + "?" + u.toString(), "_blank", "noopener");
+  }
+  window.promacValidar = { campos, resumo };
+  document.addEventListener("click", e => { if (e.target.closest('#top-nav button[data-page="validar"]')) tela(); }, true);
+  tela();
+  goToPage("validar");
 })();
 </script>
 </body>
