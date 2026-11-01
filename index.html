@@ -4320,6 +4320,9 @@ countUp();
     else if (faltam) { cls = ""; tit = "Ficha incompleta"; txt = "Nenhum indicador em vermelho até aqui."; }
     else if (parciais.length) { cls = "amarelo"; tit = "Pode usar, sob acompanhamento"; txt = `Dimensões em Parcialmente adequado: ${parciais.join(", ")}. Indicadores em amarelo: ${amar.join(", ")}. Não precisa repetir o Ciclo 1. Se mudar as instruções para corrigir os amarelos, refaça a triagem antes, e acompanhe esses indicadores de perto no Ciclo 2.`; }
     else { cls = "verde"; tit = "Pronto para a turma"; txt = "Todas as dimensões em Adequado. Siga acompanhando no Ciclo 2." + (amar.length ? ` Fique de olho nos indicadores em amarelo: ${amar.join(", ")}.` : ""); }
+    const muitosNA = DIMENSOES.filter(d => { const n = d.indicadores.filter(i => sc[i.id] === "na").length; return n > 0 && n * 2 >= d.indicadores.length; })
+      .map(d => `${d.nome.split(" · ")[0]} (${d.indicadores.filter(i => sc[i.id] === "na").length} de ${d.indicadores.length})`);
+    if (muitosNA.length) txt += ` Atenção: metade ou mais dos indicadores em N/A em ${muitosNA.join(", ")}. A média dessa dimensão se apoia em poucos indicadores; se puder, aplique itens que os testem.`;
     box.className = "decisao-card " + cls;
     box.innerHTML = `<span class="k">O que fazer com o resultado</span><b>${tit}</b><p>${txt}${falta}${sec}</p>`;
   };
