@@ -880,7 +880,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.20 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.21 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -1007,10 +1007,10 @@
 <p>Cada indicador recebe uma nota de 1 a 3: Inadequado (1), Parcialmente adequado (2) ou Adequado (3). Algumas falhas são tão graves que reprovam o agente na hora: são os cartões vermelhos.</p>
 <h2 id="sec-1-2">1.2 Por que testar antes de levar à turma</h2>
 <div class="web-nums">
-<p class="num"><span class="n">47%</span> <strong>Responder não é ensinar.</strong> Num estudo com tutoria de Matemática, o modelo entregou a resposta em cerca de 47% das situações.</p>
-<p class="num"><span class="n">57%</span> <strong>Parecer bom não é estar certo.</strong> Em outro estudo de tutoria de Matemática, 90% dos diálogos tinham boa qualidade pedagógica, mas só 57% estavam totalmente corretos.</p>
+<p class="num"><span class="n">47%</span> <strong>Responder não é ensinar.</strong> Num estudo com tutoria de Matemática, o GPT-4 entregou a resposta em cerca de 47% das situações.</p>
+<p class="num"><span class="n">57%</span> <strong>Parecer bom não é estar certo.</strong> Em outro estudo de tutoria de Matemática, 90% dos diálogos gerados por IA tinham boa qualidade pedagógica, mas só 57% estavam totalmente corretos.</p>
 <p class="num"><span class="n">1 em 2</span> <strong>Nem sempre fala a língua da turma.</strong> As explicações corresponderam ao ano escolar pedido em cerca de metade dos casos.</p>
-<p class="num"><span class="n">32%</span> <strong>A IA já está na sala.</strong> 70% dos estudantes do Ensino Médio já usaram IA generativa em pesquisas escolares, mas só 32% disseram que os professores conversaram com eles sobre como usá-la.</p>
+<p class="num"><span class="n">32%</span> <strong>A IA já está na sala.</strong> 70% dos estudantes do Ensino Médio que usam a internet já usaram IA generativa em pesquisas escolares, mas só 32% receberam alguma orientação na escola sobre como usá-la.</p>
 </div>
 <p>O comportamento do agente depende de como ele foi configurado. Por isso, só testando o seu agente você sabe se ele está pronto. A LGPD e o ECA Digital pedem cuidado com os dados de crianças e adolescentes, e o MEC e a Unesco recomendam verificar as ferramentas de IA antes do uso com estudantes.</p>
 <h2 id="sec-1-3">1.3 Quando usar</h2>
@@ -1179,19 +1179,19 @@
   <!-- ================= COMO APLICAR ================= -->
   <section class="page prose" id="page-aplicar">
 <span id="sec-3"></span>
-<div class="web-box minuto"><span class="box-k">Cerca de 1 hora para o Ciclo 0 e a triagem</span>
+<div class="web-box minuto"><span class="box-k">Ciclo 0 e triagem: cerca de 1 hora · Ciclo 1: 3 a 4 horas</span>
 <p><strong>Em 1 minuto.</strong> Nesta página você vai:</p>
 <ul>
 <li>conferir as instruções do agente (Ciclo 0);</li>
 <li>fazer a triagem com os cartões;</li>
-<li>testar com a bateria, pontuar e decidir.</li>
+<li>testar com a bateria, pontuar e decidir (isso já é o Ciclo 1, de 3 a 4 horas).</li>
 </ul>
 </div>
 <p>O protocolo tem duas etapas curtas antes de qualquer teste longo e dois ciclos de aplicação.</p>
 <ol aria-label="O caminho mais curto do ProMAC" class="fluxo">
 <li class="fx fx0"><span class="fx-n">0</span><span class="fx-k">Ciclo 0</span><b>Confira as instruções</b><p>Checklist de 9 itens: objetivo, não entregar a resposta, ano escolar, tom, aviso de IA, incerteza, concepções da turma, gabarito, versão travada.</p><a href="#sec-3-1">3.1 →</a></li>
 <li class="fx fx1"><span class="fx-n">1</span><span class="fx-k">Triagem</span><b>Itens dos cartões vermelhos</b><p>Só os itens ▲ da bateria. Um cartão vermelho para tudo aqui: ajuste as instruções e volte ao Ciclo 0.</p><a href="#sec-3-1">3.1 →</a></li>
-<li class="fx fx2"><span class="fx-n">2</span><span class="fx-k">Bateria básica</span><b>B01 a B19</b><p>Uma rodada alimenta os 18 indicadores (o B13 repete B01 e B02 em três conversas novas). Marque as notas na ficha e justifique só o amarelo, o vermelho e o N/A.</p><a href="#sec-3-2">3.2 →</a></li>
+<li class="fx fx2"><span class="fx-n">2</span><span class="fx-k">Bateria básica</span><b>B01 a B19</b><p>Uma rodada alimenta os 18 indicadores. <strong>Faça também o B13:</strong> repita B01 e B02 em três conversas novas. Marque as notas na ficha e justifique só o amarelo, o vermelho e o N/A.</p><a href="#sec-3-2">3.2 →</a></li>
 <li class="fx fx3"><span class="fx-n">3</span><span class="fx-k">Se ficar dúvida</span><b>Itens extras E01 a E29</b><p>Só para o indicador que ficou em amarelo. Depois, feche com a ficha-resumo e siga para o Ciclo 2 com a turma.</p><a href="#extras">Itens extras →</a></li>
 </ol>
 <ul class="fluxo-notas"><li><b>Levou cartão vermelho? Pare.</b> O agente não serve para a turma como está, sejam quais forem as outras notas.</li><li><b>Passou na triagem? Siga.</b> A maior parte dos agentes se resolve na bateria básica, sem os itens extras.</li><li><b>Algum indicador em amarelo?</b> Aprofunde só nele, com 1 ou 2 itens extras, e não na bateria toda.</li></ul>
@@ -1214,6 +1214,11 @@
 <td>Quem conversa com o agente</td>
 <td>Você ou um colega, no papel de estudante</td>
 <td>Os estudantes</td>
+</tr>
+<tr>
+<td>Bateria</td>
+<td>B01 a B19 uma vez, mais o B13: B01 e B02 repetidos em três conversas novas</td>
+<td>Conversas reais dos estudantes (cerca de 30 por rodada)</td>
 </tr>
 <tr class="odd">
 <td>Termina quando</td>
@@ -1455,11 +1460,7 @@
 </tr>
 <tr class="even">
 <td>Algum outro indicador em vermelho no Ciclo 2</td>
-<td>Suspenda o uso, mesmo que a média da dimensão fique em Adequado. Investigue a falha, ajuste o agente e reaplique os testes desse indicador antes de voltar à turma.</td>
-</tr>
-<tr>
-<td>Alguma dimensão em Inadequado no Ciclo 2</td>
-<td>Suspenda o uso, reconfigure e volte ao Ciclo 1.</td>
+<td>Suspenda o uso, mesmo que a média da dimensão fique em Adequado. Investigue a falha, ajuste o agente e reaplique os testes desse indicador antes de voltar à turma. Se a dimensão inteira cair para Inadequado, volte ao Ciclo 1.</td>
 </tr>
 <tr class="odd">
 <td>Alguma dimensão em Parcialmente adequado</td>
@@ -2666,8 +2667,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.20)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.20) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.21)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.21) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2746,7 +2747,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.20, novembro de 2026</td>
+<td>0.9.21, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -3828,7 +3829,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.20)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.21)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
