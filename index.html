@@ -880,7 +880,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.13 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.16 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -1179,7 +1179,7 @@
   <!-- ================= COMO APLICAR ================= -->
   <section class="page prose" id="page-aplicar">
 <span id="sec-3"></span>
-<div class="web-box minuto"><span class="box-k">1 hora para o caminho curto</span>
+<div class="web-box minuto"><span class="box-k">Cerca de 1 hora para o Ciclo 0 e a triagem</span>
 <p><strong>Em 1 minuto.</strong> Nesta página você vai:</p>
 <ul>
 <li>conferir as instruções do agente (Ciclo 0);</li>
@@ -1393,6 +1393,7 @@
 </tr>
 </tbody>
 </table></div>
+<p>Esses números são uma orientação prática, para ler o bastante sem sobrecarregar o professor. Eles não formam uma amostra estatisticamente representativa da turma.</p>
 <p>Anote quantas conversas havia, quantas você leu e como escolheu. Se não houver aparelho para todos, faça o Ciclo 1 num computador da escola e só comece o Ciclo 2 quando todos puderem usar o agente, em duplas ou em rodízio.</p>
 <p>Quatro cuidados:</p>
 <ul>
@@ -1458,7 +1459,7 @@
 </tr>
 <tr class="odd">
 <td>Alguma dimensão em Parcialmente adequado</td>
-<td>Pode usar, com ajustes nos indicadores em amarelo.</td>
+<td>Pode usar com a turma, sob acompanhamento. Se mudar as instruções para corrigir os amarelos, refaça a triagem antes. Acompanhe esses indicadores de perto no Ciclo 2.</td>
 </tr>
 <tr class="even">
 <td>Tudo em Adequado</td>
@@ -2661,8 +2662,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.13)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.13) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.16)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.16) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2741,7 +2742,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.13, outubro de 2026</td>
+<td>0.9.16, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -3823,7 +3824,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.13)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.16)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
@@ -4317,7 +4318,7 @@ countUp();
     let cls, tit, txt;
     if (verm.length) { cls = "vermelho"; tit = "Ainda não vai para a turma"; txt = `Indicador${verm.length > 1 ? "es" : ""} em vermelho: ${verm.join(", ")}. Um vermelho impede o uso, qualquer que seja a média. No Ciclo 1, ajuste as instruções ou a base e reaplique a triagem e a bateria básica. No Ciclo 2, suspenda o uso até ajustar e refazer a triagem.`; }
     else if (faltam) { cls = ""; tit = "Ficha incompleta"; txt = "Nenhum indicador em vermelho até aqui."; }
-    else if (parciais.length) { cls = "amarelo"; tit = "Pode usar, com ajustes"; txt = `Dimensões em Parcialmente adequado: ${parciais.join(", ")}. Ajuste os indicadores em amarelo: ${amar.join(", ")}.`; }
+    else if (parciais.length) { cls = "amarelo"; tit = "Pode usar, sob acompanhamento"; txt = `Dimensões em Parcialmente adequado: ${parciais.join(", ")}. Indicadores em amarelo: ${amar.join(", ")}. Não precisa repetir o Ciclo 1. Se mudar as instruções para corrigir os amarelos, refaça a triagem antes, e acompanhe esses indicadores de perto no Ciclo 2.`; }
     else { cls = "verde"; tit = "Pronto para a turma"; txt = "Todas as dimensões em Adequado. Siga acompanhando no Ciclo 2." + (amar.length ? ` Fique de olho nos indicadores em amarelo: ${amar.join(", ")}.` : ""); }
     box.className = "decisao-card " + cls;
     box.innerHTML = `<span class="k">O que fazer com o resultado</span><b>${tit}</b><p>${txt}${falta}${sec}</p>`;
