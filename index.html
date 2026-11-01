@@ -588,6 +588,7 @@
   .quadro .q-filters button.on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
   .quadro .q-board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
   .quadro .q-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .quadro .q-colh .icn { vertical-align: -3px; }
   .quadro .q-colh { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--c); padding: 0 2px 3px; border-bottom: 2px solid var(--c); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .quadro .tile { position: relative; text-align: left; font-family: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 8px 9px 9px; cursor: pointer; color: var(--ink); min-height: 76px;
     transition: transform .25s cubic-bezier(.3,1.4,.5,1), opacity .3s ease, border-color .2s ease, background-color .3s ease, box-shadow .2s ease; }
@@ -788,6 +789,8 @@
   .dimfaixa { display: grid; grid-template-columns: repeat(5, 1fr); }
   .dimfaixa button { border: 0; color: #fff; cursor: pointer; text-align: left; min-height: 150px; padding: 16px max(12px, 1.4vw); display: flex; flex-direction: column; justify-content: flex-end; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .04em; transition: filter .2s, box-shadow .2s; }
   .dimfaixa button b { font-family: 'Archivo', sans-serif; font-stretch: 70%; font-weight: 900; font-size: clamp(32px, 5vw, 54px); line-height: 1; letter-spacing: 0; }
+  .dimfaixa .df-ic { display: block; margin-bottom: auto; padding-bottom: 10px; }
+  .dimfaixa .df-ic .icn { width: 40px; height: 40px; }
   .dimfaixa button:hover { filter: brightness(1.08); }
   .dimfaixa button[aria-pressed="false"] { filter: saturate(.8); }
   .dimfaixa button[aria-pressed="true"] { box-shadow: inset 0 -10px 0 rgba(0,0,0,.28); }
@@ -855,6 +858,9 @@
     .dimfaixa { grid-template-columns: 1fr; }
     .dimfaixa button { min-height: 0; flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 16px; }
     .dimfaixa button b { font-size: 28px; }
+    .dimfaixa button { justify-content: flex-start; gap: 12px; }
+    .dimfaixa .df-ic { margin: 0; padding: 0; }
+    .dimfaixa .df-ic .icn { width: 26px; height: 26px; }
     nav.topnav button { font-size: 13px; padding: 9px 7px; }
     .prose h2 { font-size: 26px; }
   }
@@ -880,7 +886,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.23 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.24 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -2663,8 +2669,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.23)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.23) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.24)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.24) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2743,7 +2749,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.23, novembro de 2026</td>
+<td>0.9.24, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -2818,11 +2824,11 @@ const ICON_PATHS = {
   mid: '<path d="M12 3 2 20h20Z"/><path d="M12 9v5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/>',
   bad: '<path d="m6 6 12 12M18 6 6 18"/>',
   neutral: '<path d="M6 12h12"/>',
-  dim1: '<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>',
-  dim2: '<rect x="3" y="5" width="18" height="11" rx="4"/><path d="m8 16-2 4 5-4"/>',
-  dim3: '<path d="M12 3a6 6 0 0 0-3 11.2c.6.5 1 1.2 1 2.1v.2h4v-.2c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/><path d="M10 19h4"/>',
-  dim4: '<path d="M4 5.5c2-1 5-1 7 .5v13c-2-1.5-5-1.5-7-.5Z"/><path d="M20 5.5c-2-1-5-1-7 .5v13c2-1.5 5-1.5 7-.5Z"/>',
-  dim5: '<path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/>',
+  dim1: '<g transform="scale(.5)" stroke-width="3.6"><circle cx="24" cy="25" r="17"/><path d="M24 15v10l7 5"/><path d="M19 4h10"/></g>',
+  dim2: '<g transform="scale(.5)" stroke-width="3.6"><path d="M10 9h28a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5H23l-9 8v-8h-4a5 5 0 0 1-5-5V14a5 5 0 0 1 5-5z"/><path d="M15 19h18M15 25h11"/></g>',
+  dim3: '<g transform="scale(.5)" stroke-width="3.6"><path d="M5 43h10V33h10V23h10V13h8"/><path d="M36 6l7 7-7 7"/></g>',
+  dim4: '<g transform="scale(.5)" stroke-width="3.6"><path d="M18 5h12M20 5v15L9 40a2 2 0 0 0 1.8 3h26.4a2 2 0 0 0 1.8-3L28 20V5"/><path d="M14 32h20"/></g>',
+  dim5: '<g transform="scale(.5)" stroke-width="3.6"><path d="M24 4l17 6v12c0 11-7.5 18.5-17 22C14.5 40.5 7 33 7 22V10z"/><path d="M16 23l6 6 10-11"/></g>',
   agent: '<rect x="4" y="7" width="16" height="13" rx="4"/><path d="M12 7V3"/><circle cx="12" cy="2.3" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="13" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.2" fill="currentColor" stroke="none"/><path d="M9 17h6"/>'
 };
 function icon(name, size) {
@@ -3825,7 +3831,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.23)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.24)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
@@ -4087,7 +4093,7 @@ function buildQuadro() {
     filters.appendChild(b);
   });
   document.getElementById("q-board").innerHTML = DIMENSOES.map(d => `<div class="q-col" style="--c:var(--${d.id})">
-      <div class="q-colh" title="${d.nome}">${d.nome.split(" · ")[0]} · ${d.curto.split(" ")[1]}</div>
+      <div class="q-colh" title="${d.nome}">${icon("dim" + d.id.slice(1), 15)} ${d.nome.split(" · ")[0]} · ${d.curto.split(" ")[1]}</div>
       ${d.indicadores.map(ind => `<button type="button" class="tile" data-cod="${ind.codigo}" data-dim="${d.id}" data-id="${ind.id}" onclick="selQuadro('${ind.codigo}')"><span class="cd">${ind.codigo}</span><span class="lvl"></span><span class="nm">${ind.nome}</span></button>`).join("")}
     </div>`).join("");
   paintQuadro();
@@ -4204,7 +4210,7 @@ countUp();
 
   // faixas das dimensões
   const faixa = document.getElementById("dimfaixa"), painel = document.getElementById("dimfaixa-p");
-  faixa.innerHTML = DIMENSOES.map((d, i) => `<button type="button" style="background:var(--${d.id})" aria-pressed="false" aria-controls="dimfaixa-p" data-i="${i}"><b>${d.nome.split(" · ")[0]}</b>${d.curto.split(" ").slice(1).join(" ")}</button>`).join("");
+  faixa.innerHTML = DIMENSOES.map((d, i) => `<button type="button" style="background:var(--${d.id})" aria-pressed="false" aria-controls="dimfaixa-p" data-i="${i}"><span class="df-ic" aria-hidden="true">${icon("dim" + d.id.slice(1), 40)}</span><b>${d.nome.split(" · ")[0]}</b>${d.curto.split(" ").slice(1).join(" ")}</button>`).join("");
   function abreDim(i) {
     const d = DIMENSOES[i];
     faixa.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
