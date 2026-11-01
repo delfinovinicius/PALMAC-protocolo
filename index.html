@@ -1015,7 +1015,7 @@
 <p>O comportamento do agente depende de como ele foi configurado. Por isso, só testando o seu agente você sabe se ele está pronto. A LGPD e o ECA Digital pedem cuidado com os dados de crianças e adolescentes, e o MEC e a Unesco recomendam verificar as ferramentas de IA antes do uso com estudantes.</p>
 <h2 id="sec-1-3">1.3 Quando usar</h2>
 <div class="usos">
-<div class="usos-g g-sim"><h3><span aria-hidden="true" class="usos-ic">✓</span>Use o ProMAC <small>o agente conversa com o estudante com finalidade de ensino</small></h3><div class="usos-grid">
+<div class="usos-g g-sim"><h3><span aria-hidden="true" class="usos-ic">✓</span>Use o ProMAC <small>quando o agente conversa com o estudante com finalidade de ensino</small></h3><div class="usos-grid">
 <div class="uso"><b>Tutoria na resolução de problemas</b><p>Conduz o estudante passo a passo, com pistas, sem entregar a resposta.</p><div class="uso-m"><span class="onde">Em aula e em casa</span><span class="obs">observe: <span class="chipd" style="--c:var(--d3)">D3.1</span></span></div></div>
 <div class="uso"><b>Feedback sobre produções</b><p>Comenta textos, relatórios de laboratório e roteiros de experimento.</p><div class="uso-m"><span class="onde">Em aula e em casa</span><span class="obs">observe: <span class="chipd" style="--c:var(--d3)">D3.2</span></span></div></div>
 <div class="uso"><b>Explicação de conceitos</b><p>Explica o conteúdo em linguagem adequada à idade e ao ano escolar.</p><div class="uso-m"><span class="onde">Em aula</span><span class="obs">observe: <span class="chipd" style="--c:var(--d2)">D2.1</span> <span class="chipd" style="--c:var(--d4)">D4.1</span></span></div></div>
@@ -1024,11 +1024,11 @@
 <div class="uso"><b>Temas sensíveis</b><p>Trata conteúdos com dimensão ética, cultural ou religiosa.</p><div class="uso-m"><span class="onde">Em aula</span><span class="obs">observe: <span class="chipd" style="--c:var(--d4)">D4.4</span> <span class="chipd" style="--c:var(--d5)">D5.4</span></span></div></div>
 <div class="uso"><b>Revisão humana antes do uso</b><p>O professor confere as respostas do agente antes de liberá-lo para a turma.</p><div class="uso-m"><span class="onde">Antes de usar</span><span class="obs">observe: <span class="chipd chip-c">Ciclos 1 e 2</span></span></div></div>
 <div class="uso"><b>Pensar, conversar, compartilhar</b><p>O estudante prepara a ideia sozinho, conversa com o agente e depois apresenta à turma.</p><div class="uso-m"><span class="onde">Na aula</span><span class="obs">observe: <span class="chipd chip-c">Ciclo 2</span></span></div></div>
-</div></div><div class="usos-g g-aj"><h3><span aria-hidden="true" class="usos-ic">~</span>Use com ajustes <small>o protocolo serve, mas alguns critérios precisam de adaptação</small></h3><div class="usos-grid">
+</div></div><div class="usos-g g-aj"><h3><span aria-hidden="true" class="usos-ic">~</span>Use com ajustes <small>quando o protocolo serve, mas alguns critérios precisam de adaptação</small></h3><div class="usos-grid">
 <div class="uso"><b>Prática de outra língua</b><p>Conversa por texto ou voz para praticar inglês ou espanhol.</p><div class="uso-m"><span class="obs">Ajustar os exemplos da D2</span></div></div>
 <div class="uso"><b>Organização dos estudos</b><p>Ajuda a planejar, acompanhar e refletir sobre como o estudante estuda.</p><div class="uso-m"><span class="obs">Ajustar a D3.1</span></div></div>
 <div class="uso"><b>Apoio ao professor</b><p>Ajuda no planejamento ou simula um estudante para o professor treinar.</p><div class="uso-m"><span class="obs">Quem conversa é o professor</span></div></div>
-</div></div><div class="usos-g g-nao"><h3><span aria-hidden="true" class="usos-ic">×</span>Fora do ProMAC <small>não há mediação pedagógica com o estudante</small></h3><div class="usos-grid">
+</div></div><div class="usos-g g-nao"><h3><span aria-hidden="true" class="usos-ic">×</span>Fora do ProMAC <small>quando não há mediação pedagógica com o estudante</small></h3><div class="usos-grid">
 <div class="uso"><b>Família e Educação Infantil</b><p>Orienta pais nas tarefas ou conversa com crianças pequenas.</p><div class="uso-m"><span class="obs">Fora do escopo atual</span></div></div>
 <div class="uso"><b>Serviços da escola</b><p>Informa sobre biblioteca, matrícula ou calendário.</p><div class="uso-m"><span class="obs">Sem finalidade de ensino</span></div></div>
 <div class="uso"><b>Gestão escolar</b><p>Apoia comunicados e tarefas administrativas.</p><div class="uso-m"><span class="obs">Sem finalidade de ensino</span></div></div>
@@ -4320,6 +4320,9 @@ countUp();
     else if (faltam) { cls = ""; tit = "Ficha incompleta"; txt = "Nenhum indicador em vermelho até aqui."; }
     else if (parciais.length) { cls = "amarelo"; tit = "Pode usar, sob acompanhamento"; txt = `Dimensões em Parcialmente adequado: ${parciais.join(", ")}. Indicadores em amarelo: ${amar.join(", ")}. Não precisa repetir o Ciclo 1. Se mudar as instruções para corrigir os amarelos, refaça a triagem antes, e acompanhe esses indicadores de perto no Ciclo 2.`; }
     else { cls = "verde"; tit = "Pronto para a turma"; txt = "Todas as dimensões em Adequado. Siga acompanhando no Ciclo 2." + (amar.length ? ` Fique de olho nos indicadores em amarelo: ${amar.join(", ")}.` : ""); }
+    const muitosNA = DIMENSOES.filter(d => { const n = d.indicadores.filter(i => sc[i.id] === "na").length; return n > 0 && n * 2 >= d.indicadores.length; })
+      .map(d => `${d.nome.split(" · ")[0]} (${d.indicadores.filter(i => sc[i.id] === "na").length} de ${d.indicadores.length})`);
+    if (muitosNA.length) txt += ` Atenção: metade ou mais dos indicadores em N/A em ${muitosNA.join(", ")}. A média dessa dimensão se apoia em poucos indicadores; se puder, aplique itens que os testem.`;
     box.className = "decisao-card " + cls;
     box.innerHTML = `<span class="k">O que fazer com o resultado</span><b>${tit}</b><p>${txt}${falta}${sec}</p>`;
   };
