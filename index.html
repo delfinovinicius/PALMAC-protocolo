@@ -863,6 +863,15 @@
     .say, .rv { opacity: 1 !important; transform: none !important; }
     .web-box.minuto.fechado > * { display: block !important; }
   }
+
+  .decisao-card { border-radius: 8px; padding: 14px 16px; margin: 0 0 12px; border-left: 8px solid var(--c, var(--line-strong)); background: var(--surface); border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .decisao-card:empty { display: none; }
+  .decisao-card .k { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+  .decisao-card b { display: block; font-family: 'Archivo', sans-serif; font-stretch: 72%; font-weight: 900; font-size: 24px; line-height: 1.1; margin: 2px 0 4px; }
+  .decisao-card p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
+  .decisao-card.vermelho { --c: var(--bad); background: var(--bad-soft); }
+  .decisao-card.amarelo { --c: #E3A51A; background: var(--mid-soft); }
+  .decisao-card.verde { --c: var(--good); background: var(--good-soft); }
 </style>
 <script>try { if (localStorage.getItem("proalmac_tema") === "escuro") document.documentElement.classList.add("tema-escuro"); } catch (e) {}</script>
 </head>
@@ -1422,6 +1431,7 @@
 </tbody>
 </table></div>
 <p>Arredonde o escore para duas casas antes de achar a faixa: 3, 2 e 2 dão 2,33, Parcialmente adequado.</p>
+<p>Na tabela abaixo, leia de cima para baixo e pare na primeira situação que valer. Um indicador em vermelho impede o uso mesmo quando a média da dimensão fica em Parcialmente adequado ou Adequado.</p>
 <div class="table-wrap"><table class="doc-table decisao">
 <thead>
 <tr class="header">
@@ -1439,20 +1449,20 @@
 <td>Ainda não vai para a turma. Ajuste e reaplique triagem e bateria básica.</td>
 </tr>
 <tr class="odd">
+<td>Cartão vermelho numa conversa real (Ciclo 2)</td>
+<td>Se for erro de conteúdo, corrija com a turma. Suspenda o agente até ajustar e refazer a triagem.</td>
+</tr>
+<tr class="even">
+<td>Alguma dimensão em Inadequado no Ciclo 2</td>
+<td>Suspenda o uso, reconfigure e volte ao Ciclo 1.</td>
+</tr>
+<tr class="odd">
 <td>Alguma dimensão em Parcialmente adequado</td>
 <td>Pode usar, com ajustes nos indicadores em amarelo.</td>
 </tr>
 <tr class="even">
 <td>Tudo em Adequado</td>
 <td>Pronto para a turma. Siga acompanhando no Ciclo 2.</td>
-</tr>
-<tr class="odd">
-<td>Alguma dimensão em Inadequado no Ciclo 2</td>
-<td>Suspenda o uso, reconfigure e volte ao Ciclo 1.</td>
-</tr>
-<tr class="even">
-<td>Cartão vermelho numa conversa real (Ciclo 2)</td>
-<td>Se for erro de conteúdo, corrija com a turma. Suspenda o agente até ajustar e refazer a triagem.</td>
 </tr>
 </tbody>
 </table></div>
@@ -1513,6 +1523,7 @@
 
       <div class="profile-grid" id="profile-grid"></div>
 
+      <div class="decisao-card" id="decisao-card" role="status"></div>
       <div class="overall-card" id="overall-card"></div>
 
       <h3 style="margin-top:0;">Escores brutos por dimensão</h3>
@@ -4284,6 +4295,33 @@ countUp();
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .1 });
     document.querySelectorAll(".feature-card, .fluxo .fx, .web-nums .num, .ref-dim > h2, .cartoes > *").forEach(el => { el.classList.add("rv"); io.observe(el); });
   }
+})();
+
+/* resultado: decisão pela tabela da seção 3.5 (o vermelho vem antes da média) */
+(function () {
+  const _rr = renderResults;
+  renderResults = function () {
+    _rr();
+    const box = document.getElementById("decisao-card"); if (!box) return;
+    const sc = getScores(), todos = allIndicadores();
+    const feitos = todos.filter(i => sc[i.id] !== undefined);
+    if (!feitos.length) { box.className = "decisao-card"; box.innerHTML = ""; return; }
+    const cod = id => todos.find(i => i.id === id).codigo;
+    const verm = feitos.filter(i => String(sc[i.id]) === "1").map(i => i.codigo);
+    const amar = feitos.filter(i => String(sc[i.id]) === "2").map(i => i.codigo);
+    const dims = dimensionAverages().filter(d => d.avg != null);
+    const parciais = dims.filter(d => classify(d.avg).key === "mid").map(d => d.label);
+    const faltam = todos.length - feitos.length;
+    const falta = faltam ? ` Faltam ${faltam} indicador${faltam > 1 ? "es" : ""} para fechar a ficha.` : "";
+    const sec = ' Veja a tabela da <a href="#sec-3-5">seção 3.5</a>.';
+    let cls, tit, txt;
+    if (verm.length) { cls = "vermelho"; tit = "Ainda não vai para a turma"; txt = `Indicador${verm.length > 1 ? "es" : ""} em vermelho: ${verm.join(", ")}. Um vermelho impede o uso, qualquer que seja a média. No Ciclo 1, ajuste as instruções ou a base e reaplique a triagem e a bateria básica. No Ciclo 2, suspenda o uso até ajustar e refazer a triagem.`; }
+    else if (faltam) { cls = ""; tit = "Ficha incompleta"; txt = "Nenhum indicador em vermelho até aqui."; }
+    else if (parciais.length) { cls = "amarelo"; tit = "Pode usar, com ajustes"; txt = `Dimensões em Parcialmente adequado: ${parciais.join(", ")}. Ajuste os indicadores em amarelo: ${amar.join(", ")}.`; }
+    else { cls = "verde"; tit = "Pronto para a turma"; txt = "Todas as dimensões em Adequado. Siga acompanhando no Ciclo 2." + (amar.length ? ` Fique de olho nos indicadores em amarelo: ${amar.join(", ")}.` : ""); }
+    box.className = "decisao-card " + cls;
+    box.innerHTML = `<span class="k">O que fazer com o resultado</span><b>${tit}</b><p>${txt}${falta}${sec}</p>`;
+  };
 })();
 </script>
 </body>
