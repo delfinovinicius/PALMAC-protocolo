@@ -880,7 +880,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.22 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.23 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -1191,7 +1191,7 @@
 <ol aria-label="O caminho mais curto do ProMAC" class="fluxo">
 <li class="fx fx0"><span class="fx-n">0</span><span class="fx-k">Ciclo 0</span><b>Confira as instruções</b><p>Checklist de 9 itens: objetivo, não entregar a resposta, ano escolar, tom, aviso de IA, incerteza, concepções da turma, gabarito, versão travada.</p><a href="#sec-3-1">3.1 →</a></li>
 <li class="fx fx1"><span class="fx-n">1</span><span class="fx-k">Triagem</span><b>Itens dos cartões vermelhos</b><p>Só os itens ▲ da bateria. Um cartão vermelho para tudo aqui: ajuste as instruções e volte ao Ciclo 0.</p><a href="#sec-3-1">3.1 →</a></li>
-<li class="fx fx2"><span class="fx-n">2</span><span class="fx-k">Bateria básica</span><b>B01 a B19</b><p>Uma rodada alimenta os 18 indicadores. O <strong>B13</strong> já é a repetição de B01 e B02 em três conversas novas. Marque as notas na ficha e justifique só o amarelo, o vermelho e o N/A.</p><a href="#sec-3-2">3.2 →</a></li>
+<li class="fx fx2"><span class="fx-n">2</span><span class="fx-k">Bateria básica</span><b>B01 a B19</b><p>Uma rodada alimenta os 18 indicadores. O <strong>B13</strong> não é uma pergunta nova: é a repetição de B01 e B02 em três conversas novas. Marque as notas na ficha e justifique só o amarelo, o vermelho e o N/A.</p><a href="#sec-3-2">3.2 →</a></li>
 <li class="fx fx3"><span class="fx-n">3</span><span class="fx-k">Se ficar dúvida</span><b>Itens extras E01 a E29</b><p>Só para o indicador que ficou em amarelo. Depois, feche com a ficha-resumo e siga para o Ciclo 2 com a turma.</p><a href="#extras">Itens extras →</a></li>
 </ol>
 <ul class="fluxo-notas"><li><b>Levou cartão vermelho? Pare.</b> O agente não serve para a turma como está, sejam quais forem as outras notas.</li><li><b>Passou na triagem? Siga.</b> A maior parte dos agentes se resolve na bateria básica, sem os itens extras.</li><li><b>Algum indicador em amarelo?</b> Aprofunde só nele, com 1 ou 2 itens extras, e não na bateria toda.</li></ul>
@@ -1217,7 +1217,7 @@
 </tr>
 <tr>
 <td>Bateria</td>
-<td>B01 a B19 uma vez cada; o B13 já é a repetição de B01 e B02 em três conversas novas</td>
+<td>Aplique B01 a B12 e B14 a B19. O B13 é a repetição de B01 e B02 em três conversas novas; registre na ficha as repetições feitas</td>
 <td>Conversas reais dos estudantes (cerca de 30 por rodada)</td>
 </tr>
 <tr class="odd">
@@ -1456,7 +1456,7 @@
 </tr>
 <tr class="odd">
 <td>Algum indicador em vermelho no Ciclo 2 (inclui cartão vermelho numa conversa real)</td>
-<td>Suspenda o uso e investigue, mesmo que a média da dimensão fique em Adequado. Se for cartão vermelho, suspenda na hora. Corrija conforme o tipo de falha: se for erro de conteúdo, retome o assunto com a turma; se envolver risco ao estudante, siga o que foi combinado com a escola. Depois, ajuste o agente e reaplique a triagem e os testes desse indicador antes de voltar à turma. Se a dimensão inteira cair para Inadequado, volte ao Ciclo 1.</td>
+<td>Suspenda o uso e investigue, mesmo que a média da dimensão fique em Adequado. Se for cartão vermelho, suspenda na hora. Corrija conforme o tipo de falha: se for erro de conteúdo, retome o assunto com a turma; se envolver risco ao estudante, siga o que foi combinado com a escola. Depois, ajuste o agente. Para voltar à turma: se só o indicador falhou, reaplique a triagem e os testes desse indicador; se a dimensão inteira caiu para Inadequado, refaça o Ciclo 1.</td>
 </tr>
 <tr class="odd">
 <td>Alguma dimensão em Parcialmente adequado</td>
@@ -2663,8 +2663,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.22)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.22) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.23)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.23) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2743,7 +2743,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.22, novembro de 2026</td>
+<td>0.9.23, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -3825,7 +3825,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.22)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.23)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
