@@ -880,7 +880,7 @@
 <header class="cab">
   <div class="cab-in">
     <a class="logo" href="#inicio" onclick="goToPage('inicio');return false;" aria-label="ProMAC, página inicial"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>ProMAC</a>
-    <span class="cab-r"><span class="testbadge">Versão 0.9.17 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
+    <span class="cab-r"><span class="testbadge">Versão 0.9.18 · em validação</span><button class="tema-btn" id="tema-btn" type="button" onclick="trocarTema()">Modo escuro</button></span>
   </div>
   <nav class="topnav" id="top-nav"></nav>
 </header>
@@ -1217,7 +1217,7 @@
 </tr>
 <tr class="odd">
 <td>Termina quando</td>
-<td>Nenhum indicador fica em Inadequado</td>
+<td>Nenhum indicador aplicável fica em Inadequado (vermelho) e não há cartão vermelho pendente</td>
 <td>As notas param de mudar entre duas rodadas, ou o calendário acaba</td>
 </tr>
 <tr class="even">
@@ -1347,7 +1347,7 @@
 <li><strong>Pontue.</strong> Leia as conversas com os quadros da página <a href="#dimensoes">Dimensões</a> e marque as notas na ficha da página <a href="#avaliar">Avaliar</a>, que faz as contas.</li>
 <li><strong>Ajuste.</strong> Se algum indicador ficou em vermelho, mude as instruções ou a base de conhecimento e registre o que mudou.</li>
 <li><strong>Reaplique.</strong> Refaça a triagem e a bateria básica, porque um ajuste pode piorar outro indicador. Use os itens extras só onde ficou dúvida.</li>
-<li><strong>Encerre</strong> quando nenhum indicador ficar em vermelho. Essa rodada é a linha de base do agente.</li>
+<li><strong>Encerre</strong> quando nenhum indicador aplicável ficar em Inadequado (vermelho) e não houver cartão vermelho pendente. Essa rodada é a linha de base do agente.</li>
 </ol>
 <div class="web-box caso">
 <p><strong>GeneGênio · Ciclo 1.</strong> A versão v2 passou na triagem. Na bateria básica, um novo cartão vermelho apareceu no B14: o agente afirmou que “o alelo dominante é sempre o mais comum na população”. No B04, recebeu um amarelo por elogiar sem apontar o erro. Desta vez, a falha não estava nas instruções, mas na base de conhecimento.</p>
@@ -1451,7 +1451,7 @@
 </tr>
 <tr class="odd">
 <td>Cartão vermelho numa conversa real (Ciclo 2)</td>
-<td>Se for erro de conteúdo, corrija com a turma. Suspenda o agente até ajustar e refazer a triagem.</td>
+<td>Suspenda o agente e analise a conversa. Corrija conforme o tipo de falha: se for erro de conteúdo, retome o assunto com a turma; se envolver risco ao estudante, siga o que foi combinado com a escola. Depois, ajuste o agente e refaça a triagem.</td>
 </tr>
 <tr class="even">
 <td>Alguma dimensão em Inadequado no Ciclo 2</td>
@@ -2662,8 +2662,8 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
     </details>
 
     <details class="disclosure">
-      <summary><span>Ficha do produto (versão 0.9.17)</span><span class="dchev">›</span></summary>
-      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.17) e a mesma numeração de seções.</p>
+      <summary><span>Ficha do produto (versão 0.9.18)</span><span class="dchev">›</span></summary>
+      <div class="dbody"><p><b>Guia em PDF e site: onde está cada parte.</b> Os dois têm a mesma versão (0.9.18) e a mesma numeração de seções.</p>
       <div class="table-wrap"><table class="doc-table"><thead><tr class="header"><th>No guia em PDF</th><th>No site</th></tr></thead><tbody>
       <tr><td>Carta ao professor e capítulo 1</td><td><a href="#inicio">Início</a> (Carta ao professor; Conheça o ProMAC em 5 minutos)</td></tr>
       <tr><td>Capítulo 2 – As cinco dimensões e os 18 indicadores</td><td><a href="#dimensoes">Dimensões</a>; ficha de pontuação em <a href="#avaliar">Avaliar</a></td></tr>
@@ -2742,7 +2742,7 @@ SESSÃO A AVALIAR (já pseudonimizada, turnos numerados)
 </tr>
 <tr class="odd">
 <td>Versão</td>
-<td>0.9.17, novembro de 2026</td>
+<td>0.9.18, novembro de 2026</td>
 </tr>
 </tbody>
 </table></div>
@@ -3824,7 +3824,7 @@ async function exportPDF() {
     doc.setPage(p);
     doc.setDrawColor(201, 209, 218); doc.line(M, 297 - 12, W - M, 297 - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...soft);
-    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.17)"), M, 297 - 7.5);
+    doc.text(pdfText("ProMAC - Protocolo Multidimensional de Avaliação de Agentes Conversacionais (v0.9.18)"), M, 297 - 7.5);
     doc.text(p + "/" + pages, W - M, 297 - 7.5, { align: "right" });
   }
 
