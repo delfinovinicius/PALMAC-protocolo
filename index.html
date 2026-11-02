@@ -4387,27 +4387,21 @@ countUp();
   const ATIVO = /[?&]validar\b/.test(location.search);
   if (!ATIVO) return;
   const TALLY = "https://tally.so/r/PRp64d";
-  const KEY = "promac_validar_v1";
+  const KEY = "promac_validar_v2";
   const MAXC = 600;
   const CRIT = [["p", "Pertinência", "o indicador importa para avaliar um agente usado no ensino"],
-                ["c", "Clareza", "a pergunta norteadora e a rubrica distinguem bem os três níveis"],
-                ["a", "Aplicabilidade", "o “Como coletar” e o “Não confundir com” permitem aplicá-lo sem dúvida"]];
+                ["c", "Clareza", "a pergunta norteadora e a rubrica distinguem bem os três níveis"]];
   const ESC = [["3", "Adequado"], ["2", "Parcialmente adequado"], ["1", "Inadequado"]];
   const EST = [
     "As cinco dimensões cobrem, em conjunto, o que importa avaliar num agente conversacional usado no ensino",
-    "O Ciclo 0 e a triagem com cartões (vermelho e amarelo) barram falhas graves antes dos testes mais longos",
-    "A bateria-modelo do Ciclo 1 (testes simulados) dá evidência suficiente para pontuar os 18 indicadores",
-    "A calibração com um colega (dois avaliadores) é viável na rotina da escola",
-    "O Ciclo 2 (aplicação com estudantes) está bem delimitado, junto com os cuidados com os dados dos estudantes",
-    "A escala de três níveis, a regra do comportamento predominante e o uso de N/A são adequados",
-    "As médias por dimensão e geral e as faixas (1,00 a 1,66; 1,67 a 2,33; 2,34 a 3,00) orientam bem a decisão sobre o agente",
-    "Os instrumentos para imprimir (ficha semáforo, questionários, termo, registro de versões, ficha-resumo) são úteis",
-    "A leitura opcional por um avaliador LLM está bem delimitada como apoio, sem substituir o professor",
-    "O protocolo serve para agentes de diferentes plataformas (ChatGPT, Gemini, Copilot e outras)",
+    "Os ciclos estão bem delimitados e são viáveis na escola: Ciclo 0 e triagem com cartões, bateria simulada do Ciclo 1, calibração com um colega e Ciclo 2 com estudantes (com os cuidados com os dados)",
+    "A escala de três níveis, a regra do comportamento predominante, o N/A, as médias e as faixas orientam bem a decisão sobre o agente",
+    "Aplicabilidade: com o que o guia traz (Como coletar, Não confundir com, exemplos), os indicadores podem ser aplicados sem dúvida, em agentes de diferentes plataformas",
+    "Os instrumentos para imprimir são úteis, e a leitura opcional por um avaliador LLM está bem delimitada como apoio, sem substituir o professor",
     "O tempo estimado (cerca de 1 hora para o Ciclo 0 e a triagem; 3 a 4 horas para um Ciclo 1) é realista"];
   const ESTC = [["ce1", "Há sobreposição ou lacuna entre indicadores de dimensões diferentes? Se sim, quais?"],
                 ["ce2", "Falta algum indicador importante, ou algum indicador poderia sair?"],
-                ["ce3", "Comentários sobre a estrutura geral (Ciclo 0, triagem, ciclos, pontuação, instrumentos)"]];
+                ["ce3", "Comentários sobre a estrutura geral (Ciclo 0, triagem, ciclos, pontuação, instrumentos, aplicabilidade)"]];
   const IND = []; DIMENSOES.forEach(d => d.indicadores.forEach(i => IND.push(i)));
   const k = cod => "i" + cod.replace(/\D/g, "");          // D2.3 -> i23
 
@@ -4423,7 +4417,7 @@ countUp();
   const navBtn = document.querySelector('#top-nav button[data-page="validar"]'); if (navBtn) navBtn.classList.add("nav-primary");
 
   const PASSOS = ["Início"].concat(DIMENSOES.map(d => d.nome.split(" · ")[0]), ["Estrutura", "Enviar"]);
-  const totalItens = IND.length * 3 + EST.length;
+  const totalItens = IND.length * CRIT.length + EST.length;
   const feitos = () => IND.reduce((n, i) => n + CRIT.filter(c => (S.notas[k(i.codigo)] || {})[c[0]]).length, 0) + EST.filter((_, j) => S.est[j]).length;
   const dimCompleta = d => d.indicadores.every(i => CRIT.every(c => (S.notas[k(i.codigo)] || {})[c[0]]));
   const estCompleta = () => EST.every((_, j) => S.est[j]);
@@ -4463,8 +4457,8 @@ countUp();
     if (p === 0) {
       h += `<div class="vl-intro">
         <p>Obrigado por avaliar o <b>ProMAC – Protocolo Multidimensional de Avaliação de Agentes Conversacionais</b>. Nesta versão do site, cada indicador aparece com tudo o que o guia traz sobre ele, e a sua avaliação fica logo abaixo. Não é preciso abrir o PDF.</p>
-        <p><b>Como funciona:</b> (1) avalie os 18 indicadores, uma dimensão por vez, em pertinência, clareza e aplicabilidade; (2) avalie a estrutura geral do protocolo; (3) clique em <b>Enviar</b>. O formulário do Tally abre com as suas notas e pede o consentimento, a identificação, a avaliação do guia como produto educacional (MALI), a Ficha de Avaliação do Educimat e o parecer final.</p>
-        <p><b>Escala:</b> Adequado (3), Parcialmente adequado (2) ou Inadequado (1). Quando marcar 2 ou 1, conte no comentário da dimensão o que mudaria. Tempo estimado: 40 a 60 minutos no total.</p>
+        <p><b>Como funciona:</b> (1) avalie os 18 indicadores, uma dimensão por vez, em pertinência e clareza; (2) avalie a estrutura geral do protocolo; (3) clique em <b>Enviar</b>. O formulário do Tally abre com as suas notas e pede o consentimento, a identificação e o parecer final. A avaliação do guia como produto educacional (MALI) e a Ficha de Avaliação do Educimat são opcionais.</p>
+        <p><b>Escala:</b> Adequado (3), Parcialmente adequado (2) ou Inadequado (1). Quando marcar 2 ou 1, conte no comentário da dimensão o que mudaria. Tempo estimado: 30 a 40 minutos no total.</p>
         <p class="vl-priv">Suas respostas ficam salvas só neste navegador enquanto você responde; pode fechar e voltar depois pelo mesmo link. Nada é enviado até você clicar em Enviar, quando as notas e os comentários seguem para o formulário do Tally, junto com o código <b>${S.cod}</b>, que liga as duas partes.</p>
       </div>`;
     } else if (p >= 1 && p <= 5) {
@@ -4480,7 +4474,7 @@ countUp();
       const faltaD = DIMENSOES.filter(d => !dimCompleta(d)).map(d => d.nome.split(" · ")[0]);
       const falta = faltaD.concat(estCompleta() ? [] : ["Estrutura"]);
       h += `<h2>Enviar</h2>`;
-      h += falta.length ? `<p class="vl-falta">Ainda faltam respostas em: ${falta.join(", ")}. Você pode enviar assim mesmo, mas as notas que faltarem chegam em branco.</p>` : `<p>Tudo respondido. Ao clicar em Enviar, o formulário do Tally abre numa nova aba com as suas notas. Lá você completa o consentimento, a identificação, a avaliação do guia (MALI), a Ficha do Educimat e o parecer final, e envia.</p>`;
+      h += falta.length ? `<p class="vl-falta">Ainda faltam respostas em: ${falta.join(", ")}. Você pode enviar assim mesmo, mas as notas que faltarem chegam em branco.</p>` : `<p>Tudo respondido. Ao clicar em Enviar, o formulário do Tally abre numa nova aba com as suas notas. Lá você completa o consentimento, a identificação e o parecer final (a MALI e a Ficha do Educimat são opcionais) e envia.</p>`;
       h += `<p><button type="button" class="vl-send" id="vl-send">Enviar e continuar no Tally →</button></p>
         <p class="vl-priv">Seu código de validação: <b>${S.cod}</b>. Se o Tally não abrir, copie o resumo abaixo e envie ao autor por e-mail.</p>
         <details class="vl-more"><summary>Ver resumo das respostas</summary><pre style="white-space:pre-wrap;font-size:12.5px" id="vl-resumo">${esc(resumo())}</pre></details>`;
@@ -4515,7 +4509,7 @@ countUp();
   }
   function resumo() {
     const q = campos();
-    const lin = [`Código: ${q.v}`, "Notas por indicador (pertinência, clareza, aplicabilidade):"];
+    const lin = [`Código: ${q.v}`, "Notas por indicador (pertinência, clareza):"];
     IND.forEach(i => lin.push(`  ${i.codigo} ${i.nome}: ${q[k(i.codigo)].split("").join(" · ")}`));
     lin.push(`Estrutura (itens 1 a ${EST.length}): ${q.est.split("").join(" ")}`);
     [["c1", "D1"], ["c2", "D2"], ["c3", "D3"], ["c4", "D4"], ["c5", "D5"], ["ce1", "Sobreposição ou lacuna"], ["ce2", "Indicador faltando ou sobrando"], ["ce3", "Estrutura"]].forEach(([id, t]) => { if (q[id]) lin.push(`${t}: ${q[id]}`); });
